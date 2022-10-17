@@ -10,7 +10,7 @@ on:
       
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: darthkali/moviesservice
+  IMAGE_NAME: keksbendiger/moviesservice
   
 defaults:
   run:
