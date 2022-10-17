@@ -18,3 +18,17 @@ Danach könnt Ihr das Package pullen:
 ``` bash
   docker pull ghcr.io/<namespace>/<package-name>
 ```
+
+## Semgrep
+https://github.com/marketplace/actions/semgrep-action
+
+``` yaml
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-20.04
+    container:
+      image: returntocorp/semgrep
+    steps:
+    - uses: actions/checkout@v3
+    - run: semgrep ci
+ ```
