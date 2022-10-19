@@ -65,7 +65,8 @@ jobs:
       with:
         registry: ${{ env.REGISTRY }}
         #username: ${{ github.actor }}
-        username: Keksbendiger
+        #username: Keksbendiger
+        username: fh-erfurt
         #password: ${{ secrets.GITHUB_TOKEN }}
         password: ${{ secrets.PUSH_TOKEN }}
 
