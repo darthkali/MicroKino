@@ -1,6 +1,10 @@
 # MC2_MicroKino
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
+## Präsentation zum Thema Microservices und INfrastruktur aus dem Masterprojekt
+https://github.com/fh-erfurt/MC2_MicroKino/blob/main/Masterprojekt_Pr%C3%A4sentation.pptx
+
+
 ## Pull Package von GitHub Registry
 Um das Paackage welches ihr in eure private GitHub Registry deployed habt zu pullen, müsst ihr euch zunächst Authentifizieren. Das erfolgt über den folgenden Befehl
 
