@@ -3,6 +3,7 @@ Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
 ## Präsentation zum Thema Microservices und INfrastruktur aus dem Masterprojekt
 https://github.com/fh-erfurt/MC2_MicroKino/blob/main/Masterprojekt_Pr%C3%A4sentation.pptx
+[Masterprojekt_Präsentation.pdf](https://github.com/fh-erfurt/MC2_MicroKino/files/9821293/Masterprojekt_Prasentation.pdf)
 
 
 ## Pull Package von GitHub Registry
