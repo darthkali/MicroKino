@@ -8,7 +8,7 @@ plugins {
 	kotlin("plugin.jpa") version "1.6.21"
 }
 
-group = "de.keksbendiger"
+group = "de.fherfurt"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -20,7 +20,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.1.4")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

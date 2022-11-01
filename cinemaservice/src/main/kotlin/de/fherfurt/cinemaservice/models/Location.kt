@@ -6,17 +6,14 @@ import javax.persistence.Column
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
 import javax.persistence.Table
 
 
 @Entity
-@Table(name = "cinema")
-data class Cinema(
+@Table(name = "location")
+data class Location(
     @Id
-    @Column(name = "cinema_id")
+    @Column(name = "location_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long = 0,
 
@@ -24,13 +21,14 @@ data class Cinema(
     private val createDt: LocalDate? = LocalDate.now(),
 
     @Column
-    val name: String = "",
+    val city: String = "",
 
-    @ManyToOne
-    val location: Location ,
+    @Column
+    val street: String = "",
 
-    @OneToMany
-    val cinemaHalls: List<CinemaHall>,
+    @Column
+    val zip: String = "",
 
-
+    @Column(name = "house_number")
+    val houseNumber: String = "",
 )
