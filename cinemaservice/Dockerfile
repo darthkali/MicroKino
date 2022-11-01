@@ -5,7 +5,7 @@ FROM openjdk:17 as build
 MAINTAINER darthkali.de
 
 # Add the application's jar to the container
-COPY build/libs/moviesservice-0.0.1-SNAPSHOT.jar moviesservice-0.0.1-SNAPSHOT.jar
+COPY build/libs/cinemaservice-0.0.1-SNAPSHOT.jar cinemaservice-0.0.1-SNAPSHOT.jar
 
 #execute the application
-ENTRYPOINT ["java","-jar","/moviesservice-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/cinemaservice-0.0.1-SNAPSHOT.jar"]

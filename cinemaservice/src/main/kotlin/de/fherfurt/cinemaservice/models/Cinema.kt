@@ -1,18 +1,18 @@
-package de.keksbendiger.moviesservice.models
+package de.fherfurt.cinemaservice.models
 
 import javax.persistence.*
 
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
-// project:  moviesservice
+// project:  cinemaservice
 // created:  04.10.2022
 //--------------------------------------------------//
 @Entity
-@Table(name = "movies")
-data class Movie(
+@Table(name = "cinemas")
+data class Cinema(
     @Id
-    @Column(name = "movie_id")
+    @Column(name = "cinema_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     // TODO potentially use UUIDs here
     val id: Long = 0,

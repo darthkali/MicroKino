@@ -1,11 +1,11 @@
-package de.keksbendiger.moviesservice
+package de.fherfurt.cinemaservice
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import java.lang.Math.random
 
 @SpringBootTest
-class MoviesserviceApplicationTests {
+class CinemasserviceApplicationTests {
 
     @Test
     fun contextLoads() {

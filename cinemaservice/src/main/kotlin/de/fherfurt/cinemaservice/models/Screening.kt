@@ -1,4 +1,4 @@
-package de.keksbendiger.moviesservice.models
+package de.fherfurt.cinemaservice.models
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -7,7 +7,7 @@ import javax.persistence.*
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
-// project:  moviesservice
+// project:  cinemaservice
 // created:  04.10.2022
 //--------------------------------------------------//
 @Entity
@@ -29,7 +29,7 @@ data class Screening (
     val price: Double = 5.0,
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "movie_id", nullable = true)
-    var movie : Movie? = null
+    @JoinColumn(name = "cinema_id", nullable = true)
+    var cinema : Cinema? = null
 
 )

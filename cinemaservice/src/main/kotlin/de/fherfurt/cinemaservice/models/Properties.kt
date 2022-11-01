@@ -1,4 +1,4 @@
-package de.keksbendiger.moviesservice.models
+package de.fherfurt.cinemaservice.models
 
 class Properties(
     private val msg: String,

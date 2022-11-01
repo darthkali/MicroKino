@@ -1,16 +1,16 @@
-package de.keksbendiger.moviesservice.repositories
+package de.fherfurt.cinemaservice.repositories
 
-import de.keksbendiger.moviesservice.models.Movie
+import de.fherfurt.cinemaservice.models.Cinema
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
-// project:  moviesservice
+// project:  cinemaservice
 // created:  04.10.2022
 //--------------------------------------------------//
 @Repository
-interface MovieRepository : CrudRepository<Movie, Long> {
-    fun findMovieById(movieId : Long) : Movie
+interface CinemaRepository : CrudRepository<Cinema, Long> {
+    fun findCinemaById(cinemaId : Long) : Cinema
 }
