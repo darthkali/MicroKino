@@ -8,6 +8,32 @@ https://github.com/fh-erfurt/MC2_MicroKino/blob/main/Masterprojekt_Pr%C3%A4senta
 ### PDF
 [Masterprojekt_Präsentation.pdf](https://github.com/fh-erfurt/MC2_MicroKino/files/9821293/Masterprojekt_Prasentation.pdf)
 
+## Naming Conventions
+
+### Namespace
+de.fherfurt.xxx
+
+
+### Service
+#### PackageName
+cinemaservice
+movieservice
+
+#### Modelname
+Cinema
+Movie
+
+#### Reponame
+CinemaRepository
+MovieRepository
+
+#### Applicationname
+CinemaServiceApplication
+MovieServiceApplication
+
+
+
+
 
 ## Pull Package von GitHub Registry
 Um das Paackage welches ihr in eure private GitHub Registry deployed habt zu pullen, müsst ihr euch zunächst Authentifizieren. Das erfolgt über den folgenden Befehl
