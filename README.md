@@ -31,6 +31,9 @@ MovieRepository
 CinemaServiceApplication
 MovieServiceApplication
 
+#### Controller
+CinemaServiceController
+
 
 
 
