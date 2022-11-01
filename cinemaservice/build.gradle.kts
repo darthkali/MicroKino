@@ -24,6 +24,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("de.codecentric:spring-boot-admin-starter-server:2.7.7")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
@@ -34,6 +35,12 @@ tasks.withType<KotlinCompile> {
 		jvmTarget = "17"
 	}
 }
+
+//dependencyManagement {
+//	imports {
+//		mavenBom("de.codecentric:spring-boot-admin-dependencies:${property("springBootAdminVersion")}")
+//	}
+//}
 
 tasks.withType<Test> {
 	useJUnitPlatform()

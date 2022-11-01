@@ -15,42 +15,43 @@ import org.springframework.web.bind.annotation.*
 class CinemaServiceController {
     @Autowired
     val cinemaHallRepository: CinemaHallRepository? = null
+    @Autowired
     val cinemaRepository: CinemaRepository? = null
+    @Autowired
     val locationRepository: LocationRepository? = null
 
 
-    @GetMapping("/cinemaService/cinemas")
+    @GetMapping("/cinemas")
     fun getAllCinemas(): List<Cinema>? {
         return cinemaRepository?.findAll()?.toList()
     }
 
-    @GetMapping("/cinemaService/cinema/{cinemaId}")
+    @GetMapping("/cinema/{cinemaId}")
     fun getCinemaById(@PathVariable(value = "cinemaId") cinemaId: Long): Cinema? {
         return cinemaRepository?.findCinemaById(cinemaId)
     }
 
 
-    @GetMapping("/cinemaService/locations")
+    @GetMapping("/locations")
     fun getAllLocations(): List<Location>? {
         return locationRepository?.findAll()?.toList()
     }
 
-    @GetMapping("/cinemaService/location/{locationId}")
+    @GetMapping("/location/{locationId}")
     fun getLocationById(@PathVariable(value = "locationId") locationId: Long): Location? {
         return locationRepository?.findLocationById(locationId)
     }
 
 
-    @GetMapping("/cinemaService/cinemaHalls")
+    @GetMapping("/cinemaHalls")
     fun getAllCinemasHalls(): List<CinemaHall>? {
         return cinemaHallRepository?.findAll()?.toList()
     }
 
-    @GetMapping("/cinemaService/cinemaHall/{cinemaHallId}")
+    @GetMapping("/cinemaHall/{cinemaHallId}")
     fun getCinemaHallById(@PathVariable(value = "cinemaHallId") cinemaHallId: Long): CinemaHall? {
         return cinemaHallRepository?.findCinemaHallById(cinemaHallId)
     }
-
 
 
 }
