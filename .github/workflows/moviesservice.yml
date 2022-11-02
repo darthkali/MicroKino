@@ -80,5 +80,5 @@ jobs:
         file: ./moviesservice/Dockerfile
         push: true
         #tags: ${{ steps.meta.outputs.tags }}
-        tags: movie
+        tags: ghcr.io/fh-erfurt/mc2_microkino:movie
         labels: ${{ steps.meta.outputs.labels }}
