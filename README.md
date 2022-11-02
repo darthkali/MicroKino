@@ -11,28 +11,28 @@ https://github.com/fh-erfurt/MC2_MicroKino/blob/main/Masterprojekt_Pr%C3%A4senta
 ## Naming Conventions
 
 ### Namespace
-de.fherfurt.xxx
+- de.fherfurt.xxx
 
 
 ### Service
 #### PackageName
-cinemaservice
-movieservice
+- cinemaservice
+- movieservice
 
 #### Modelname
-Cinema
-Movie
+- Cinema
+- Movie
 
 #### Reponame
-CinemaRepository
-MovieRepository
+- CinemaRepository
+- MovieRepository
 
 #### Applicationname
-CinemaServiceApplication
-MovieServiceApplication
+- CinemaServiceApplication
+- MovieServiceApplication
 
 #### Controller
-CinemaServiceController
+- CinemaServiceController
 
 
 
