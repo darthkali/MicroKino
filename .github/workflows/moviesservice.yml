@@ -65,9 +65,7 @@ jobs:
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
-        #username: Keksbendiger
         password: ${{ secrets.GITHUB_TOKEN }}
-        #password: ${{ secrets.PUSH_TOKEN }}
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
@@ -81,5 +79,6 @@ jobs:
         context: ./moviesservice/
         file: ./moviesservice/Dockerfile
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
+        #tags: ${{ steps.meta.outputs.tags }}
+        tags: movie
         labels: ${{ steps.meta.outputs.labels }}
