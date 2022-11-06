@@ -1,7 +1,10 @@
 # MC2_MicroKino
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
-## Präsentation zum Thema Microservices und INfrastruktur aus dem Masterprojekt
+<img width="572" alt="image" src="https://user-images.githubusercontent.com/46423967/200179175-4360981b-71a7-4493-bb55-2d0febdda00e.png">
+
+
+## Präsentation zum Thema Microservices und Infrastruktur aus dem Masterprojekt
 ### PPTX
 https://github.com/fh-erfurt/MC2_MicroKino/blob/main/Masterprojekt_Pr%C3%A4sentation.pptx
 
@@ -12,7 +15,6 @@ https://github.com/fh-erfurt/MC2_MicroKino/blob/main/Masterprojekt_Pr%C3%A4senta
 
 ### Namespace
 - de.fherfurt.xxx
-
 
 ### Service
 #### PackageName
