@@ -6,6 +6,7 @@ import javax.persistence.Column
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Entity
+import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 
@@ -38,7 +39,7 @@ data class User(
     @Column
     val membership: Boolean,
 
-    @Column
+    @ManyToOne
     val address: Address,
 
     )
