@@ -82,3 +82,4 @@ jobs:
         #tags: ${{ steps.meta.outputs.tags }}
         tags: ghcr.io/fh-erfurt/microkino:bookingservice
         labels: ${{ steps.meta.outputs.labels }}
+        
