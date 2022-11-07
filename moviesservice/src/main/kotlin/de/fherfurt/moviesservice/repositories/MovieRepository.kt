@@ -1,6 +1,6 @@
-package de.keksbendiger.moviesservice.repositories
+package de.fherfurt.moviesservice.repositories
 
-import de.keksbendiger.moviesservice.models.Movie
+import de.fherfurt.moviesservice.models.Movie
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 

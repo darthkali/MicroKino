@@ -1,4 +1,4 @@
-package de.keksbendiger.moviesservice.config
+package de.fherfurt.moviesservice.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

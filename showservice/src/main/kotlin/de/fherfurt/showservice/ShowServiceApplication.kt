@@ -1,4 +1,4 @@
-package de.keksbendiger.moviesservice
+package de.fherfurt.showservice
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
