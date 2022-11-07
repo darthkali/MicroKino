@@ -1,4 +1,4 @@
-# MC2_MicroKino
+# MicroKino
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
 <img  alt="image" src="https://user-images.githubusercontent.com/46423967/200379177-404b01a7-8d8a-4de7-8753-7dd601050fed.png">
