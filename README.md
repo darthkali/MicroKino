@@ -1,7 +1,7 @@
 # MC2_MicroKino
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
-<img width="572" alt="image" src="https://user-images.githubusercontent.com/46423967/200179175-4360981b-71a7-4493-bb55-2d0febdda00e.png">
+<img width="572" alt="image" src="https://user-images.githubusercontent.com/46423967/200379177-404b01a7-8d8a-4de7-8753-7dd601050fed.png">
 
 
 ## Präsentation zum Thema Microservices und Infrastruktur aus dem Masterprojekt
