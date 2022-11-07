@@ -1,4 +1,4 @@
-name: "moviesservice2"
+name: "moviesservice"
 
 on:
   push:
@@ -80,5 +80,5 @@ jobs:
         file: ./moviesservice/Dockerfile
         push: true
         #tags: ${{ steps.meta.outputs.tags }}
-        tags: ghcr.io/fh-erfurt/microkino:movie
+        tags: ghcr.io/fh-erfurt/microkino:moviesservice
         labels: ${{ steps.meta.outputs.labels }}
