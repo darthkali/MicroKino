@@ -4,13 +4,6 @@ Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 <img  alt="image" src="https://user-images.githubusercontent.com/46423967/200379177-404b01a7-8d8a-4de7-8753-7dd601050fed.png">
 
 
-## Präsentation zum Thema Microservices und Infrastruktur aus dem Masterprojekt
-### PPTX
-https://github.com/fh-erfurt/MC2_MicroKino/blob/main/Masterprojekt_Pr%C3%A4sentation.pptx
-
-### PDF
-[Masterprojekt_Präsentation.pdf](https://github.com/fh-erfurt/MC2_MicroKino/files/9821293/Masterprojekt_Prasentation.pdf)
-
 ## Naming Conventions
 
 ### Namespace
