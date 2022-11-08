@@ -1,0 +1,88 @@
+version: "3.8"
+
+services:
+  gateway:
+    image: "traefik:v2.9"
+    command:
+      # Define `web`entrypoint to be port 80
+      - --entrypoints.web.address=:80
+      # Docker is our provider, e.g. services are based on containers
+      - --providers.docker
+      # With this option, Traefik will not expose new containers to the outside
+      # Thus, we must configure routes in Traefik to access them
+      - --providers.docker.exposedbydefault=false
+      # This enables the Traefik API as well as the dashboard
+      - --api.dashboard=true
+    ports:
+      - "80:80"
+    volumes:
+      # We mount the docker system socket so that Traefik will
+      # be able to recognize changes like started or stopped containers
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+      # Enable Traefik Dashboard available at `http://localhost`
+      - "traefik.http.routers.dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`, `/dashboard`))"
+      - "traefik.http.routers.dashboard.service=api@internal"
+
+  #configserver:
+    #image: darthkali/configserver:latest
+    #labels:
+      #- "traefik.enable=true"
+
+  movieservice:
+    image: ghcr.io/fh-erfurt/microkino:movieservice
+    #depends_on:
+      #- configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    #environment:
+      #SPRING_PROFILES_ACTIVE: prod
+      #SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unreliable-service.rule=PathPrefix(`/movie`)"
+
+  cinemaservice:
+    image: ghcr.io/fh-erfurt/microkino:cinemaservice
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unreliable-service.rule=PathPrefix(`/cinema`)"
+
+  showservice:
+    image: ghcr.io/fh-erfurt/microkino:showservice
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unreliable-service.rule=PathPrefix(`/show`)"
+
+  bookingservice:
+    image: ghcr.io/fh-erfurt/microkino:bookingservice
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unreliable-service.rule=PathPrefix(`/booking`)"
