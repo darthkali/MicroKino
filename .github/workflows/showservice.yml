@@ -1,6 +1,7 @@
 name: "showservice"
 
 on:
+  workflow_dispatch:
   push:
     # run the workflow only on changes
     # to the auth route and auth workflow
