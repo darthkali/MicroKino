@@ -29,6 +29,9 @@ data class Show(
         @Column
         val theatre: String,
 
+        @Column
+        val movieId: Long,
+
         // String oder Number?
         @Column
         val location: String,

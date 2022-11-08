@@ -6,8 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient
 
 @SpringBootApplication
 @FeignClient
-class MovieserviceApplication
+class ShowServiceApplication
 
 fun main(args: Array<String>) {
-	runApplication<MovieserviceApplication>(*args)
+	runApplication<ShowServiceApplication>(*args)
 }

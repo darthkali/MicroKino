@@ -1,4 +1,4 @@
-package de.keksbendiger.eurekaserver
+package de.fherfurt.eurekaserver
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

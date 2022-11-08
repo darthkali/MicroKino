@@ -1,4 +1,4 @@
-package de.keksbendiger.moviesservice
+package de.fherfurt.moviesservice
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
