@@ -1,7 +1,7 @@
 # MicroKino
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
-<img  alt="diagram from the system architecture" src="https://github.com/fh-erfurt/MicroKino/assets/architecture-diagram.png">
+<img  alt="diagram from the system architecture" src="https://github.com/fh-erfurt/MicroKino/blob/main/assets/architecture-diagram.png">
 
 ## Naming Conventions
 
