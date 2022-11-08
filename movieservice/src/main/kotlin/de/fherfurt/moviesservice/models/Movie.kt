@@ -10,7 +10,7 @@ import javax.persistence.*
 // created:  04.10.2022
 //--------------------------------------------------//
 @Entity
-@Table(name = "movies")
+@Table(name = "movie")
 data class Movie(
         @Id
         @Column(name = "movie_id")

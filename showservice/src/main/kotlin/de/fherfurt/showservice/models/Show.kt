@@ -11,7 +11,7 @@ import javax.persistence.*
 // created:  04.10.2022
 //--------------------------------------------------//
 @Entity
-@Table(name = "shows")
+@Table(name = "show")
 data class Show(
         @Id
         @Column(name = "show_id")
