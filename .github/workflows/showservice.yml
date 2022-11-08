@@ -8,7 +8,7 @@ on:
     paths:
       - "showservice/**"
       - ".github/workflows/showservice.yml"
-      -
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
