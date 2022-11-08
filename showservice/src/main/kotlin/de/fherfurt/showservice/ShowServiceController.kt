@@ -28,7 +28,7 @@ class ShowServiceController {
     }
 
     @GetMapping("/shows/byMovie/{movieId}")
-    fun getScreenings(@PathVariable(value = "movieId") movieId: Long): List<Show>? {
+    fun getShows(@PathVariable(value = "movieId") movieId: Long): List<Show>? {
         return showRepository?.findShowsByMovieId(movieId)?.toList()
     }
 
@@ -45,7 +45,7 @@ class ShowServiceController {
     }
 
     @PostMapping("/shows/remove")
-    fun removeScreening(@RequestBody show: Show) {
+    fun removeShow(@RequestBody show: Show) {
         showRepository?.delete(show);
     }
 
