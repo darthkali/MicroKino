@@ -31,6 +31,4 @@ data class Cinema(
 
     @OneToMany
     val cinemaHalls: List<CinemaHall>,
-
-
 )
