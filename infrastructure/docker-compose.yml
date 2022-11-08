@@ -64,7 +64,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.cinemaservice.rule=PathPrefix(`/cinema`)"
       #- "traefik.http.routers.cinemaservice.entrypoints=web"
-      - "traefik.http.services.showservice.loadbalancer.server.port=8090"
+      - "traefik.http.services.cinemaservice.loadbalancer.server.port=8090"
 
   showservice:
     image: ghcr.io/fh-erfurt/microkino:showservice
@@ -94,4 +94,4 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.bookingservice.rule=PathPrefix(`/booking`)"
       #- "traefik.http.routers.bookingservice.entrypoints=web"
-      - "traefik.http.services.showservice.loadbalancer.server.port=8090"
+      - "traefik.http.services.bookingservice.loadbalancer.server.port=8090"
