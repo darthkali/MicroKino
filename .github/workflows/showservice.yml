@@ -6,8 +6,8 @@ on:
     # run the workflow only on changes
     # to the auth route and auth workflow
     paths:
-      - "$GITHUB_WORKFLOW/**"
-      - ".github/workflows/$GITHUB_WORKFLOW.yml"
+      - "${{ GITHUB_WORKFLOW }}/**"
+      - ".github/workflows/${{ GITHUB_WORKFLOW }}.yml"
       
 env:
   REGISTRY: ghcr.io
@@ -15,7 +15,7 @@ env:
   
 defaults:
   run:
-    working-directory: $GITHUB_WORKFLOW
+    working-directory: ${{ GITHUB_WORKFLOW }}
 
 jobs:
   test:
@@ -77,10 +77,10 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
-        context: ./$GITHUB_WORKFLOW/
-        file: ./$GITHUB_WORKFLOW/Dockerfile
+        context: ./${{ GITHUB_WORKFLOW }}/
+        file: ./${{ GITHUB_WORKFLOW }}/Dockerfile
         push: true
         #tags: ${{ steps.meta.outputs.tags }}
-        tags: ghcr.io/fh-erfurt/microkino:$GITHUB_WORKFLOW
+        tags: ghcr.io/fh-erfurt/microkino:${{ GITHUB_WORKFLOW }}
         labels: ${{ steps.meta.outputs.labels }}
         
