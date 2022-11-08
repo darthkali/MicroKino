@@ -31,6 +31,9 @@ Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
 
 
+## GitHub Action Workflow
+Um den names des packages an den Workflownamen zu binden, bietet GitHub eigene Enviroment Variablen an. Mit dem `GITHUB_WORKFLOW` kann der Name, den man dem Workflow gegeben hat, als Packagename benutzt werden. 
+https://docs.github.com/en/actions/learn-github-actions/environment-variables
 
 
 ## Pull Package von GitHub Registry
