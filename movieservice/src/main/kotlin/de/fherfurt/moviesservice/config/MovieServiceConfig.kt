@@ -1,10 +1,10 @@
-package de.fherfurt.moviesservice.config
+package de.fherfurt.movieservice.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 
 
 @org.springframework.context.annotation.Configuration
-@ConfigurationProperties(prefix = "moviesservice")
+@ConfigurationProperties(prefix = "movieservice")
 class MovieServiceConfig {
      val msg: String? = null
      val buildVersion: String? = null

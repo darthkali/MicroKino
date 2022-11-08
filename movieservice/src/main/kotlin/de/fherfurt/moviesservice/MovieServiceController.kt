@@ -1,9 +1,9 @@
-package de.fherfurt.moviesservice
+package de.fherfurt.movieservice
 
 
-import de.fherfurt.moviesservice.config.MovieServiceConfig
-import de.fherfurt.moviesservice.models.Movie
-import de.fherfurt.moviesservice.repositories.MovieRepository
+import de.fherfurt.movieservice.config.MovieServiceConfig
+import de.fherfurt.movieservice.models.Movie
+import de.fherfurt.movieservice.repositories.MovieRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.GetMapping
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
-// project:  moviesservice
+// project:  movieservice
 // created:  04.10.2022
 //--------------------------------------------------//
 @RestController

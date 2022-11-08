@@ -1,4 +1,4 @@
-package de.fherfurt.moviesservice.models
+package de.fherfurt.movieservice.models
 
 import java.time.LocalDate
 import javax.persistence.*
@@ -6,7 +6,7 @@ import javax.persistence.*
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
-// project:  moviesservice
+// project:  movieservice
 // created:  04.10.2022
 //--------------------------------------------------//
 @Entity

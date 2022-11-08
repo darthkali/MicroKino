@@ -1,12 +1,12 @@
-name: "moviesservice"
+name: "movieservice"
 
 on:
   push:
     # run the workflow only on changes
     # to the auth route and auth workflow
     paths:
-      - "moviesservice/**"
-      - ".github/workflows/moviesservice.yml"
+      - "movieservice/**"
+      - ".github/workflows/movieservice.yml"
       
 env:
   REGISTRY: ghcr.io
@@ -14,7 +14,7 @@ env:
   
 defaults:
   run:
-    working-directory: moviesservice
+    working-directory: movieservice
 
 jobs:
   test:
@@ -76,10 +76,10 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
-        context: ./moviesservice/
-        file: ./moviesservice/Dockerfile
+        context: ./movieservice/
+        file: ./movieservice/Dockerfile
         push: true
         #tags: ${{ steps.meta.outputs.tags }}
-        tags: ghcr.io/fh-erfurt/microkino:moviesservice
+        tags: ghcr.io/fh-erfurt/microkino:movieservice
         labels: ${{ steps.meta.outputs.labels }}
         

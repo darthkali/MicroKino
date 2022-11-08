@@ -1,4 +1,4 @@
-package de.fherfurt.moviesservice
+package de.fherfurt.movieservice
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

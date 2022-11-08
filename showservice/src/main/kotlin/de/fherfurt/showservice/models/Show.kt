@@ -7,7 +7,7 @@ import javax.persistence.*
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
-// project:  moviesservice
+// project:  showservice
 // created:  04.10.2022
 //--------------------------------------------------//
 @Entity

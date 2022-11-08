@@ -1,13 +1,13 @@
-package de.fherfurt.moviesservice.repositories
+package de.fherfurt.movieservice.repositories
 
-import de.fherfurt.moviesservice.models.Movie
+import de.fherfurt.movieservice.models.Movie
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
-// project:  moviesservice
+// project:  movieservice
 // created:  04.10.2022
 //--------------------------------------------------//
 @Repository

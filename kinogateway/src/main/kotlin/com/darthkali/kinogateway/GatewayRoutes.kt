@@ -18,9 +18,9 @@ class GatewayRoutes {
         return builder.routes()
             .route { p: PredicateSpec ->
                 p
-                    .path("/keksbendiger/moviesservice/**")
+                    .path("/keksbendiger/movieservice/**")
                     .filters { f: GatewayFilterSpec ->
-                        f.rewritePath("/keksbendiger/moviesservice/(?<segment>.*)", "/\${segment}")
+                        f.rewritePath("/keksbendiger/movieservice/(?<segment>.*)", "/\${segment}")
                             .addResponseHeader("X-Response-Time", LocalDate.now().toString())
                     }
                     .uri("lb://MOVIE")
