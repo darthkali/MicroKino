@@ -12,7 +12,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  
+
 defaults:
   run:
     working-directory: showservice
@@ -51,13 +51,13 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        
+
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
-    
+
     - name: Grant Permissions to gradlew
       run: chmod +x gradlew
-      
+
     - name: Execute Gradle build
       run: ./gradlew build -x test
 
