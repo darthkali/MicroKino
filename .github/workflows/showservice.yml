@@ -1,21 +1,23 @@
 name: "showservice"
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  WORKFLOW: showservice
+
 on:
   workflow_dispatch:
   push:
     # run the workflow only on changes
     # to the auth route and auth workflow
     paths:
-      - "${{ GITHUB_WORKFLOW }}/**"
-      - ".github/workflows/${{ GITHUB_WORKFLOW }}.yml"
-      
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+      - "${{ env.WORKFLOW }}/**"
+      - ".github/workflows/${{ env.WORKFLOW }}.yml"
+
   
 defaults:
   run:
-    working-directory: ${{ GITHUB_WORKFLOW }}
+    working-directory: ${{ env.WORKFLOW }}
 
 jobs:
   test:
@@ -77,10 +79,10 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
-        context: ./${{ GITHUB_WORKFLOW }}/
-        file: ./${{ GITHUB_WORKFLOW }}/Dockerfile
+        context: ./${{ env.WORKFLOW }}/
+        file: ./${{ env.WORKFLOW }}/Dockerfile
         push: true
         #tags: ${{ steps.meta.outputs.tags }}
-        tags: ghcr.io/fh-erfurt/microkino:${{ GITHUB_WORKFLOW }}
+        tags: ghcr.io/fh-erfurt/microkino:${{ env.WORKFLOW }}
         labels: ${{ steps.meta.outputs.labels }}
         
