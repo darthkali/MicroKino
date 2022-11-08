@@ -6,8 +6,8 @@ on:
     # run the workflow only on changes
     # to the auth route and auth workflow
     paths:
-      - format("{1}/**", $GITHUB_WORKFLOW)
-      - format(".github/workflows/{1}.yml", $GITHUB_WORKFLOW)
+      - "$GITHUB_WORKFLOW/**"
+      - ".github/workflows/$GITHUB_WORKFLOW.yml"
       
 env:
   REGISTRY: ghcr.io
