@@ -22,29 +22,29 @@ class ShowServiceController {
     var showServiceConfig: ShowServiceConfig? = null
 
 
-    @GetMapping("/shows/list")
+    @GetMapping("/show/list")
     fun getAllMovies(): List<Show>? {
         return showRepository?.findAll()?.toList()
     }
 
-    @GetMapping("/shows/byMovie/{movieId}")
+    @GetMapping("/show/byMovie/{movieId}")
     fun getShows(@PathVariable(value = "movieId") movieId: Long): List<Show>? {
         return showRepository?.findShowsByMovieId(movieId)?.toList()
     }
 
-    @GetMapping("/shows/{showId}")
+    @GetMapping("/show/{showId}")
     fun getShowById(@PathVariable(value = "showId") showId: Long): Show? {
         return showRepository?.findShowById(showId)
     }
 
-    @PostMapping("/shows/add/{movieId}")
+    @PostMapping("/show/add/{movieId}")
     fun addShow(@RequestBody show: Show, @PathVariable(value = "movieId") movieId: Long) {
         //val movie = movieRepository?.findById(movieId)
         //show.show = movie?.get()
         showRepository?.save(show);
     }
 
-    @PostMapping("/shows/remove")
+    @PostMapping("/show/remove")
     fun removeShow(@RequestBody show: Show) {
         showRepository?.delete(show);
     }

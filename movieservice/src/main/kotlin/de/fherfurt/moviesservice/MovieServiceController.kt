@@ -39,22 +39,22 @@ class MovieServiceController {
 //    }
 
 
-    @GetMapping("/movies/list")
+    @GetMapping("/movie/list")
     fun getAllMovies(): List<Movie>? {
         return movieRepository?.findAll()?.toList()
     }
 
-    @GetMapping("/movies/{movieId}")
+    @GetMapping("/movie/{movieId}")
     fun getMovieById(@PathVariable(value = "movieId") movieId: Long): Movie? {
         return movieRepository?.findMovieById(movieId)
     }
 
-    @PostMapping("/movies/add")
+    @PostMapping("/movie/add")
     fun addMovie(@RequestBody movie: Movie) {
         movieRepository?.save(movie);
     }
 
-    @PostMapping("/movies/remove")
+    @PostMapping("/movie/remove")
     fun removeMovie(@RequestBody movie: Movie) {
         movieRepository?.delete(movie);
     }
