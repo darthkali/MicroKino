@@ -15,13 +15,14 @@ services:
       - --api.dashboard=true
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       # We mount the docker system socket so that Traefik will
       # be able to recognize changes like started or stopped containers
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels:
       - "traefik.enable=true"
-      # Enable Traefik Dashboard available at `http://localhost`
+      # Enable Traefik Dashboard available at `http://localhost/dashboard/`
       - "traefik.http.routers.dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`, `/dashboard`))"
       - "traefik.http.routers.dashboard.service=api@internal"
 
@@ -46,7 +47,9 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.unreliable-service.rule=PathPrefix(`/movie`)"
+      - "traefik.http.routers.movieservice.rule=PathPrefix(`/movie`)"
+      #- "traefik.http.routers.movieservice.entrypoints=web"
+      - "traefik.http.services.movieservice.loadbalancer.server.port=8090"
 
   cinemaservice:
     image: ghcr.io/fh-erfurt/microkino:cinemaservice
@@ -59,7 +62,9 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.unreliable-service.rule=PathPrefix(`/cinema`)"
+      - "traefik.http.routers.cinemaservice.rule=PathPrefix(`/cinema`)"
+      #- "traefik.http.routers.cinemaservice.entrypoints=web"
+      - "traefik.http.services.showservice.loadbalancer.server.port=8090"
 
   showservice:
     image: ghcr.io/fh-erfurt/microkino:showservice
@@ -72,7 +77,9 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.unreliable-service.rule=PathPrefix(`/show`)"
+      - "traefik.http.routers.showservice.rule=PathPrefix(`/show`)"
+      #- "traefik.http.routers.showservice.entrypoints=web"
+      - "traefik.http.services.showservice.loadbalancer.server.port=8090"
 
   bookingservice:
     image: ghcr.io/fh-erfurt/microkino:bookingservice
@@ -85,4 +92,6 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.unreliable-service.rule=PathPrefix(`/booking`)"
+      - "traefik.http.routers.bookingservice.rule=PathPrefix(`/booking`)"
+      #- "traefik.http.routers.bookingservice.entrypoints=web"
+      - "traefik.http.services.showservice.loadbalancer.server.port=8090"
