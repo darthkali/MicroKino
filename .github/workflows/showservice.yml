@@ -1,10 +1,5 @@
 name: "showservice"
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-  WORKFLOW: showservice
-
 on:
   workflow_dispatch:
   push:
@@ -13,11 +8,14 @@ on:
     paths:
       - "showservice/**"
       - ".github/workflows/showservice.yml"
-
+      -
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
   
 defaults:
   run:
-    working-directory: ${{ env.WORKFLOW }}
+    working-directory: showservice
 
 jobs:
   test:
@@ -79,10 +77,10 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
-        context: ./${{ env.WORKFLOW }}/
-        file: ./${{ env.WORKFLOW }}/Dockerfile
+        context: ./showservice/
+        file: ./showservice/Dockerfile
         push: true
         #tags: ${{ steps.meta.outputs.tags }}
-        tags: ghcr.io/fh-erfurt/microkino:${{ env.WORKFLOW }}
+        tags: ghcr.io/fh-erfurt/microkino:showservice
         labels: ${{ steps.meta.outputs.labels }}
         
