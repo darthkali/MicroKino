@@ -90,10 +90,10 @@ COPY --from=build --chown=185 /workspace/app/build/libs/bookingservice-0.0.1-SNA
 ENTRYPOINT ["java","-jar","/bookingservice-0.0.1-SNAPSHOT.jar"]
 ```
 
-Somit haben wir die Option zwei Docker-Compose Dateien zu bauen: Eine für den Produktions- und Testbetrieb, also das komplette Deployment. Und eine für den (lokalen) 
+Somit haben wir die Option zwei Docker-Compose Dateien zu bauen: Eine für den Produktions- und Testbetrieb, also das komplette Deployment. Und eine für den (lokalen) Entwicklungsprozess.
 
 ### Development
-Hier können wir die gesamte Infrastruktur lokal hochfahren, und müssen nicht jeder Änderung der Services hochladen und warten, bis die Packages gebaut werden.
+Hier können wir die gesamte Infrastruktur lokal hochfahren, und müssen nicht jede Änderung der Services hochladen und warten, bis die Packages gebaut werden.
 
 ```dockerfile
 
