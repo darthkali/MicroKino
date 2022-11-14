@@ -58,32 +58,128 @@ Danach könnt Ihr das Package pullen:
   docker pull ghcr.io/<namespace>/<package-name>
 ```
 
+## Build Prozess
+Jeder Service besitzt eine eigene Dockerfile, in der wir ein Multi-Stage-Docker-Image bauen. Hier wird im ersten Schritt der Service mittels Gradle gebaut und anschließend daraus das Docker Image erzeugt.
+
+```dockerfile
+# Multi-stage Docker Image Build
+FROM gradle:jdk17 as build
+WORKDIR /workspace/app
+
+# Copy Gradle Config
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+
+# First gradle run without src to pull all dependencies
+# Just ignoring errors
+RUN gradle build 2>/dev/null || true
+
+# copy source and build again
+COPY src src
+RUN gradle build
+
+# Final Image that will contain the application created by above build image
+FROM openjdk:17
+
+ENV LANGUAGE='en_US:en'
+
+# We make four distinct layers so if there are application changes the library layers can be re-used
+COPY --from=build --chown=185 /workspace/app/build/libs/bookingservice-0.0.1-SNAPSHOT.jar bookingservice-0.0.1-SNAPSHOT.jar
+
+#execute the application
+ENTRYPOINT ["java","-jar","/bookingservice-0.0.1-SNAPSHOT.jar"]
+```
+
+Somit haben wir die Option zwei Docker-Compose Dateien zu bauen: Eine für den Produktions- und Testbetrieb, also das komplette Deployment. Und eine für den (lokalen) 
+
+### Development
+Hier können wir die gesamte Infrastruktur lokal hochfahren, und müssen nicht jeder Änderung der Services hochladen und warten, bis die Packages gebaut werden.
+
+```dockerfile
+
+version: "3.8"
+
+services:
+  gateway:
+    image: "traefik:v2.9"
+    ...
+    
+  movieservice:
+    build:
+      context: ../movieservice
+      dockerfile: ../movieservice/Dockerfile
+    image: "fh-erfurt/microkino:movieservice"
+    ...
+    
+  cinemaservice:
+    build:
+      context: ../cinemaservice
+      dockerfile: ../cinemaservice/Dockerfile
+    image: "fh-erfurt/microkino:cinemaservice"
+    ...
+    
+  ...
+```
+### Produktions- und Testbetrieb
+Diese Compose Datei nutzt die Packages, welche automatisiert in den GitHub Action Workflows erzeugt werden. Diese wird dann für den Produktions- und Testbetrieb (Deploymentprozess) genutzt.
+
+```dockerfile
+version: "3.8"
+
+services:
+  gateway:
+    image: "traefik:v2.9"
+    ...
+
+  movieservice:
+    image: ghcr.io/fh-erfurt/microkino:movieservice
+    ...
+    
+  cinemaservice:
+    image: ghcr.io/fh-erfurt/microkino:cinemaservice
+    ...
+ 
+  ...
+```
+
+### GitHub Actions Workflow
+In den Workflows muss nun kein eigener Gradle Build implementiert sein. Hier braucht es lediglich den Checkout, das Login in die Container-Registry und im Anschluss das Bauen sowie das Pushen des Docker Images. Ein separater Test Step  ist ebenfalls nicht nötig, da dieser schon beim Build des Services ausgeführt wird. Schlägt dieser fehl, läuft der Workflow nicht durch und gibt die passende Fehlermeldung aus.
 
 
-## Naming Conventions
+```yml
+name: "movieservice"
 
-### Namespace
-- de.fherfurt.xxx
+on:
+  ...
 
-### Service
-#### PackageName
-- cinemaservice
-- movieservice
+env:
+  ...
 
-#### Modelname
-- Cinema
-- Movie
+defaults:
+  ...
 
-#### Reponame
-- CinemaRepository
-- MovieRepository
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
 
-#### Applicationname
-- CinemaServiceApplication
-- MovieServiceApplication
+    steps:
+      - uses: actions/checkout@v3
+        ...
 
-#### Controller
-- CinemaServiceController
+      - name: Log in to the Container registry
+        ...
+
+      - name: Extract metadata (tags, labels) for Docker
+        ...
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ./movieservice/
+          file: ./movieservice/Dockerfile
+          ...
+ ```
+
 
 ## Traefik
 .. wird über die docker-compose.yml konfiguriert.
