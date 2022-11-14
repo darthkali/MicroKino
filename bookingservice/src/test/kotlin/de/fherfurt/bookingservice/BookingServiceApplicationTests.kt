@@ -11,7 +11,7 @@ class BookingsserviceApplicationTests {
     fun contextLoads() {
         val randomNumber = random() * 10
         println("RandomNumber : $randomNumber")
-        assert(randomNumber > 5)
+        //assert(randomNumber > 5)
     }
 
 }
