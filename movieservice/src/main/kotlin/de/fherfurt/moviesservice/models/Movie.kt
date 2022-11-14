@@ -11,20 +11,18 @@ import javax.persistence.*
 //--------------------------------------------------//
 @Entity
 @Table(name = "movie")
-data class Movie(
+class Movie (
         @Id
         @Column(name = "movie_id")
         @GeneratedValue(strategy = GenerationType.AUTO)
         // TODO potentially use UUIDs here
-        val id: Long = 0,
+        val id: Long,
 
         @Column(name = "create_dt")
-        private val createDt: LocalDate? = LocalDate.now(),
+        var createDt: LocalDate = LocalDate.now(),
 
-        @Column
         val name: String,
 
-        @Column
         // in minutes
         val playLength: Int = 90,
 
@@ -36,9 +34,7 @@ data class Movie(
         @ElementCollection
         val reviews: List<String>,
 
-        // conclusion
-        @Column
-        val conclusion: String,
+        val conclusion: String
 
         // ratings
 )
