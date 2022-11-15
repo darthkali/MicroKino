@@ -41,6 +41,6 @@ data class Ticket(
     val orderId: String,
 
     @Column
-    val userId: Long,
+    val visitorId: Long,
 
     )

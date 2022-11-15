@@ -11,10 +11,10 @@ import javax.persistence.Table
 
 
 @Entity
-@Table(name = "user")
-data class User(
+@Table(name = "visitor")
+data class Visitor(
     @Id
-    @Column(name = "user_id")
+    @Column(name = "visitor_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long = 0,
 

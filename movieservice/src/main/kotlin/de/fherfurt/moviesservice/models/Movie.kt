@@ -28,7 +28,8 @@ class Movie (
 
         // cast
         @ElementCollection
-        val cast: List<String>,
+        val casting: List<String>, //TODO Wurde von "cast" in "casting" umbenannt, da es sonst zu Problemen mit den SQL führt
+
 
         // reviews
         @ElementCollection

@@ -1,10 +1,10 @@
 package de.fherfurt.bookingservice.repositories
 
-import de.fherfurt.bookingservice.models.User
+import de.fherfurt.bookingservice.models.Visitor
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository : CrudRepository<User, Long> {
-    fun findUserById(userId: Long): User
+interface VisitorRepository : CrudRepository<Visitor, Long> {
+    fun findVisitorById(userId: Long): Visitor
 }

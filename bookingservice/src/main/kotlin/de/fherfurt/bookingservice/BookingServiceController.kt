@@ -4,11 +4,11 @@ package de.fherfurt.bookingservice
 import de.fherfurt.bookingservice.models.Address
 import de.fherfurt.bookingservice.models.CreditCard
 import de.fherfurt.bookingservice.models.Ticket
-import de.fherfurt.bookingservice.models.User
+import de.fherfurt.bookingservice.models.Visitor
 import de.fherfurt.bookingservice.repositories.AddressRepository
 import de.fherfurt.bookingservice.repositories.CreditCardRepository
 import de.fherfurt.bookingservice.repositories.TicketRepository
-import de.fherfurt.bookingservice.repositories.UserRepository
+import de.fherfurt.bookingservice.repositories.VisitorRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -25,7 +25,7 @@ class BookingServiceController {
     val addressRepository: AddressRepository? = null
 
     @Autowired
-    val userRepository: UserRepository? = null
+    val visitorRepository: VisitorRepository? = null
 
 
     @GetMapping("/creditCards")
@@ -57,13 +57,13 @@ class BookingServiceController {
 
 
     @GetMapping("/users")
-    fun getAllBookingsHalls(): List<User>? {
-        return userRepository?.findAll()?.toList()
+    fun getAllBookingsHalls(): List<Visitor>? {
+        return visitorRepository?.findAll()?.toList()
     }
 
     @GetMapping("/user/{userId}")
-    fun getUserById(@PathVariable(value = "userId") userId: Long): User? {
-        return userRepository?.findUserById(userId)
+    fun getVisitorById(@PathVariable(value = "userId") userId: Long): Visitor? {
+        return visitorRepository?.findVisitorById(userId)
     }
 
 
