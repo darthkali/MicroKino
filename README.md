@@ -120,6 +120,15 @@ services:
     
   ...
 ```
+
+> Bei uns ist beim Bauen der Anwendung folgender Fehler aufgetreten:
+>  ```bash
+>  Gradle build daemon disappeared unexpectedly (it may have been killed or may have crashed)
+>  ```
+>  Das liegt daran, dass der Docker Deamon nicht genügend Arbeitsspeicher zur verfügung hat. Unsere initiale Lösung ist es dem Deamon in den Settings im Docker Desktop mehr Speicher zuzuweisen:
+>  
+>  ![](assets/docker-desktop-memory-settings.png)
+
 ### Produktions- und Testbetrieb
 Diese Compose Datei nutzt die Packages, welche automatisiert in den GitHub Action Workflows erzeugt werden. Diese wird dann für den Produktions- und Testbetrieb (Deploymentprozess) genutzt.
 
