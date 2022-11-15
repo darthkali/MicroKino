@@ -142,6 +142,11 @@ services:
   ...
 ```
 
+Wenn mehrere Compose-Files im selben Verzeichnis liegen, kann man sie mit dem '-f' Flag spezifizieren:
+```
+docker compose -f docker-compose-local.yml up -d --build --force-recreate
+```
+
 ### GitHub Actions Workflow
 In den Workflows muss nun kein eigener Gradle Build implementiert sein. Hier braucht es lediglich den Checkout, das Login in die Container-Registry und im Anschluss das Bauen sowie das Pushen des Docker Images. Ein separater Test Step  ist ebenfalls nicht nötig, da dieser schon beim Build des Services ausgeführt wird. Schlägt dieser fehl, läuft der Workflow nicht durch und gibt die passende Fehlermeldung aus.
 
