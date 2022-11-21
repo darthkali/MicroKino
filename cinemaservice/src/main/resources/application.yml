@@ -1,0 +1,15 @@
+# we have a application.yml and an application.properties. In this case the application.yml will be loaded first and the application.properties afterwards. That means, the application.properties will overwrite the application.yml
+
+
+spring:
+  kafka:
+    consumer:
+      group-id: tpd-loggers
+      auto-offset-reset: earliest
+    # change this property if you are using your own
+    # Kafka cluster or your Docker IP is different
+    bootstrap-servers: localhost:9092
+
+tpd:
+  topic-name: advice-topic
+  messages-per-request: 10
