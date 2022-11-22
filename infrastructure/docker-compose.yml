@@ -26,6 +26,21 @@ services:
       - "traefik.http.routers.dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`, `/dashboard`))"
       - "traefik.http.routers.dashboard.service=api@internal"
 
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.postgres.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.postgres.entrypoints=tcp"
+      - "traefik.tcp.services.postgres.loadbalancer.server.port=5432"
+    environment:
+      # TODO we should use docker secrets here
+      POSTGRES_USER: microkino
+      POSTGRES_PASSWORD: m1cr0k1n0
+      PGDATA: /data/postgres
+      POSTGRES_DB: testdb
+
   #configserver:
     #image: darthkali/configserver:latest
     #labels:
@@ -64,8 +79,6 @@ services:
 
   movieservice:
     image: ghcr.io/fh-erfurt/microkino:movieservice
-    #depends_on:
-      #- configserver
     deploy:
       restart_policy:
         condition: on-failure
@@ -82,6 +95,10 @@ services:
       #- "traefik.http.routers.movieservice.entrypoints=web"
       - "traefik.http.services.movieservice.loadbalancer.server.port=8090"
 
+    depends_on:
+      - kafka
+      - db
+
   cinemaservice:
     image: ghcr.io/fh-erfurt/microkino:cinemaservice
     deploy:
@@ -96,6 +113,10 @@ services:
       - "traefik.http.routers.cinemaservice.rule=PathPrefix(`/cinema`)"
       #- "traefik.http.routers.cinemaservice.entrypoints=web"
       - "traefik.http.services.cinemaservice.loadbalancer.server.port=8090"
+
+    depends_on:
+      - kafka
+      - db
 
   showservice:
     image: ghcr.io/fh-erfurt/microkino:showservice
@@ -112,6 +133,10 @@ services:
       #- "traefik.http.routers.showservice.entrypoints=web"
       - "traefik.http.services.showservice.loadbalancer.server.port=8090"
 
+    depends_on:
+      - kafka
+      - db
+
   bookingservice:
     image: ghcr.io/fh-erfurt/microkino:bookingservice
     deploy:
@@ -126,3 +151,7 @@ services:
       - "traefik.http.routers.bookingservice.rule=PathPrefix(`/booking`)"
       #- "traefik.http.routers.bookingservice.entrypoints=web"
       - "traefik.http.services.bookingservice.loadbalancer.server.port=8090"
+
+    depends_on:
+      - kafka
+      - db

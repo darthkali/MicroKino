@@ -27,6 +27,7 @@ dependencies {
 	implementation("de.codecentric:spring-boot-admin-starter-server:2.7.7")
 	implementation ("org.springframework.kafka:spring-kafka")
 	runtimeOnly("com.h2database:h2")
+	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

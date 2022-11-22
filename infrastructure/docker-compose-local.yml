@@ -29,10 +29,29 @@ services:
       - "traefik.http.routers.dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`, `/dashboard`))"
       - "traefik.http.routers.dashboard.service=api@internal"
 
+      - "traefik.tcp.routers.postgres.rule=Host(`localhost`)"
+      - "traefik.tcp.routers.postgres.service=db@internal"
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.postgres.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.postgres.entrypoints=tcp"
+      - "traefik.tcp.services.postgres.loadbalancer.server.port=5432"
+    environment:
+      # TODO we should use docker secrets here
+      POSTGRES_USER: microkino
+      POSTGRES_PASSWORD: m1cr0k1n0
+      PGDATA: /data/postgres
+      POSTGRES_DB: testdb
+
   #configserver:
     #image: darthkali/configserver:latest
     #labels:
       #- "traefik.enable=true"
+
   zookeeper:
     image: wurstmeister/zookeeper
     command: [
@@ -70,8 +89,6 @@ services:
       context: ../movieservice
       dockerfile: ../movieservice/Dockerfile
     image: "fh-erfurt/microkino:movieservice"
-    #depends_on:
-      #- configserver
     deploy:
       restart_policy:
         condition: on-failure
@@ -92,6 +109,7 @@ services:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
+      - db
 
   cinemaservice:
     build:
@@ -115,6 +133,7 @@ services:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
+      - db
 
 
   showservice:
@@ -139,6 +158,7 @@ services:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
+      - db
 
   bookingservice:
     build:
@@ -162,3 +182,4 @@ services:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
+      - db
