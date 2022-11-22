@@ -35,16 +35,35 @@ services:
       #- "traefik.enable=true"
   zookeeper:
     image: wurstmeister/zookeeper
+    command: [
+      "sh", "-c",
+      "start-zk.sh config/zookeeper.properties"
+    ]
     ports:
       - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+
   kafka:
     image: wurstmeister/kafka
+    command: [
+      "sh", "-c",
+      "start-kafka.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
+    ]
+    depends_on:
+      - zookeeper
+
     ports:
       - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      LOG_DIR: "/tmp/logs"
+      #KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      #KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
 
   movieservice:
     build:
@@ -69,6 +88,11 @@ services:
       #- "traefik.http.routers.movieservice.entrypoints=web"
       - "traefik.http.services.movieservice.loadbalancer.server.port=8090"
 
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - kafka
+
   cinemaservice:
     build:
       context: ../cinemaservice
@@ -86,6 +110,12 @@ services:
       - "traefik.http.routers.cinemaservice.rule=PathPrefix(`/cinema`)"
       #- "traefik.http.routers.cinemaservice.entrypoints=web"
       - "traefik.http.services.cinemaservice.loadbalancer.server.port=8090"
+
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - kafka
+
 
   showservice:
     build:
@@ -105,6 +135,11 @@ services:
       #- "traefik.http.routers.showservice.entrypoints=web"
       - "traefik.http.services.showservice.loadbalancer.server.port=8090"
 
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - kafka
+
   bookingservice:
     build:
       context: ../bookingservice
@@ -122,3 +157,8 @@ services:
       - "traefik.http.routers.bookingservice.rule=PathPrefix(`/booking`)"
       #- "traefik.http.routers.bookingservice.entrypoints=web"
       - "traefik.http.services.bookingservice.loadbalancer.server.port=8090"
+
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - kafka

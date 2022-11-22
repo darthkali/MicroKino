@@ -1,5 +1,6 @@
-# we have a application.yml and an application.properties. In this case the application.yml will be loaded first and the application.properties afterwards. That means, the application.properties will overwrite the application.yml
-
+# we have an application.yml and an application.properties.
+# In this case the application.yml will be loaded first and the application.properties afterwards.
+# That means, the application.properties will overwrite the application.yml
 
 spring:
   kafka:
