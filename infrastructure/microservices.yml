@@ -1,0 +1,43 @@
+version: "2.4"
+
+services:
+  movieservice:
+    extends:
+      file: common_microservice.yml
+      service: common_microservice
+    # Services will not share depends_on when using 'extends'
+    depends_on:
+      - movieservice_db
+    labels:
+      - "traefik.http.routers.movieservice.rule=PathPrefix(`/movie`)"
+      - "traefik.http.services.movieservice.loadbalancer.server.port=8090"
+
+  showservice:
+    extends:
+      file: common_microservice.yml
+      service: common_microservice
+    depends_on:
+      - showservice_db
+    labels:
+      - "traefik.http.routers.showservice.rule=PathPrefix(`/show`)"
+      - "traefik.http.services.showservice.loadbalancer.server.port=8090"
+
+  cinemaservice:
+    extends:
+      file: common_microservice.yml
+      service: common_microservice
+    depends_on:
+      - cinemaservice_db
+    labels:
+      - "traefik.http.routers.cinemaservice.rule=PathPrefix(`/cinema`)"
+      - "traefik.http.services.cinemaservice.loadbalancer.server.port=8090"
+
+  bookingservice:
+    extends:
+      file: common_microservice.yml
+      service: common_microservice
+    depends_on:
+      - bookingservice_db
+    labels:
+      - "traefik.http.routers.bookingservice.rule=PathPrefix(`/booking`)"
+      - "traefik.http.services.bookingservice.loadbalancer.server.port=8090"

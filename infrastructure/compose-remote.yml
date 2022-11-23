@@ -1,0 +1,87 @@
+# run using
+# docker compose -f compose-local.yml build
+version: "2.4"
+
+services:
+  ########################
+  ########## GATEWAY
+  gateway:
+    extends:
+      file: common_infracstructure.yml
+      service: gateway
+
+  ########################
+  ########## MESSAGING
+  zookeeper:
+    extends:
+      file: common_infrastructure.yml
+      service: zookeeper
+
+  kafka:
+    extends:
+      file: common_infrastructure.yml
+      service: kafka
+    # Services will not share depends_on when using 'extends'
+    depends_on:
+      - zookeeper
+
+  ########################
+  ########## DATABASES
+  movieservice_db:
+    extends:
+      file: common_infrastructure.yml
+      service: db
+
+  cinemaservice_db:
+    extends:
+      file: common_infrastructure.yml
+      service: db
+
+  showservice_db:
+    extends:
+      file: common_infrastructure.yml
+      service: db
+
+  bookingservice_db:
+    extends:
+      file: common_infrastructure.yml
+      service: db
+
+  ########################
+  ########## MICROSERVICES
+  movieservice:
+    extends:
+      file: microservices.yml
+      service: movieservice
+    image: ghcr.io/fh-erfurt/microkino:movieservice
+    depends_on:
+      - kafka
+      - movieservice_db
+
+  cinemaservice:
+    extends:
+      file: microservices.yml
+      service: cinemaservice
+    image: ghcr.io/fh-erfurt/microkino:cinemaservice
+    depends_on:
+      - kafka
+      - cinemaservice_db
+
+
+  showservice:
+    extends:
+      file: microservices.yml
+      service: showservice
+    image: ghcr.io/fh-erfurt/microkino:showservice
+    depends_on:
+      - kafka
+      - showservice_db
+
+  bookingservice:
+    extends:
+      file: microservices.yml
+      service: bookingservice
+    image: ghcr.io/fh-erfurt/microkino:bookingservice
+    depends_on:
+      - kafka
+      - bookingservice_db

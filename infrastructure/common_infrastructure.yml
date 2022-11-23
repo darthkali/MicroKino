@@ -1,0 +1,86 @@
+version: "3.8"
+
+services:
+  gateway:
+    image: "traefik:v2.9"
+    command:
+      # Define `web`entrypoint to be port 80
+      - --entrypoints.web.address=:80
+      # Docker is our provider, e.g. services are based on containers
+      - --providers.docker
+      # With this option, Traefik will not expose new containers to the outside
+      # Thus, we must configure routes in Traefik to access them
+      - --providers.docker.exposedbydefault=false
+      # This enables the Traefik API as well as the dashboard
+      - --api.dashboard=true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # We mount the docker system socket so that Traefik will
+      # be able to recognize changes like started or stopped containers
+      #- "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=true"
+      # Enable Traefik Dashboard available at `http://localhost/dashboard/`
+      - "traefik.http.routers.dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`, `/dashboard`))"
+      - "traefik.http.routers.dashboard.service=api@internal"
+
+      - "traefik.tcp.routers.postgres.rule=Host(`localhost`)"
+      - "traefik.tcp.routers.postgres.service=db@internal"
+
+      #configserver:
+      #image: darthkali/configserver:latest
+      #labels:
+      #- "traefik.enable=true"
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    command: [
+      "sh", "-c",
+      "start-zk.sh config/zookeeper.properties"
+    ]
+    ports:
+      - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+
+  kafka:
+    image: wurstmeister/kafka
+    command: [
+      "sh", "-c",
+      "start-kafka.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
+    ]
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      LOG_DIR: "/tmp/logs"
+      #KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      #KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock:ro
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.postgres.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.postgres.entrypoints=tcp"
+      - "traefik.tcp.services.postgres.loadbalancer.server.port=5432"
+    environment:
+      # TODO we should use docker secrets here
+      POSTGRES_USER: microkino
+      POSTGRES_PASSWORD: m1cr0k1n0
+      PGDATA: /data/postgres
+      POSTGRES_DB: testdb
