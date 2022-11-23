@@ -5,6 +5,8 @@ on:
   push:
     # run the workflow only on changes
     # to the auth route and auth workflow
+    branches:
+      - "main"
     paths:
       - "showservice/**"
       - ".github/workflows/showservice.yml"
