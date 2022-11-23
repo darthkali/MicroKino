@@ -19,18 +19,18 @@ services:
     volumes:
       # We mount the docker system socket so that Traefik will
       # be able to recognize changes like started or stopped containers
-      #- "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock:ro
+      - //var/run/docker.sock:/var/run/docker.sock:ro
+      #- type: bind
+      #  source: /var/run/docker.sock
+      #  target: /var/run/docker.sock:ro
     labels:
       - "traefik.enable=true"
       # Enable Traefik Dashboard available at `http://localhost/dashboard/`
       - "traefik.http.routers.dashboard.rule=Host(`localhost`) && (PathPrefix(`/api`, `/dashboard`))"
       - "traefik.http.routers.dashboard.service=api@internal"
 
-      - "traefik.tcp.routers.postgres.rule=Host(`localhost`)"
-      - "traefik.tcp.routers.postgres.service=db@internal"
+      #- "traefik.tcp.routers.postgres.rule=Host(`localhost`)"
+      #- "traefik.tcp.routers.postgres.service=db@internal"
 
       #configserver:
       #image: darthkali/configserver:latest
@@ -64,18 +64,16 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
     volumes:
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock:ro
+      - //var/run/docker.sock:/var/run/docker.sock:ro
+      #- type: bind
+        #source: /var/run/docker.sock
+        #target: /var/run/docker.sock:ro
 
   db:
     image: postgres:latest
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.tcp.routers.postgres.rule=HostSNI(`*`)"
-      - "traefik.tcp.routers.postgres.entrypoints=tcp"
-      - "traefik.tcp.services.postgres.loadbalancer.server.port=5432"
     environment:
       # TODO we should use docker secrets here
       POSTGRES_USER: microkino
