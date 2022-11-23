@@ -54,8 +54,6 @@ services:
       "sh", "-c",
       "start-kafka.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
     ]
-    depends_on:
-      - zookeeper
     ports:
       - "9092:9092"
     environment:

@@ -7,7 +7,7 @@ services:
   ########## GATEWAY
   gateway:
     extends:
-      file: common_infracstructure.yml
+      file: common_infrastructure.yml
       service: gateway
 
   ########################
