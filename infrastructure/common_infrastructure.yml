@@ -19,7 +19,7 @@ services:
     volumes:
       # We mount the docker system socket so that Traefik will
       # be able to recognize changes like started or stopped containers
-      - //var/run/docker.sock:/var/run/docker.sock:ro
+      - ${PATH_PREFIX}/var/run/docker.sock:/var/run/docker.sock:ro
       #- type: bind
       #  source: /var/run/docker.sock
       #  target: /var/run/docker.sock:ro
@@ -64,7 +64,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
     volumes:
-      - //var/run/docker.sock:/var/run/docker.sock:ro
+      - ${PATH_PREFIX}/var/run/docker.sock:/var/run/docker.sock:ro
       #- type: bind
         #source: /var/run/docker.sock
         #target: /var/run/docker.sock:ro
