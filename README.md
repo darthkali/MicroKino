@@ -8,6 +8,9 @@ Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
 ![](assets/architecture-diagram.png)
 
+
+
+
 ## Projekt Struktur
 Um die einzelnen Services in IntelliJ direkt aus dem Main-Projekt (MikroKino)  zu benutzen, müssen diese als Modul geladen werden. Dazu muss ein neues Modul in den Projekteinstellungen hinzugefügt werden:
 
@@ -57,6 +60,10 @@ Danach könnt Ihr das Package pullen:
 ```bash
   docker pull ghcr.io/<namespace>/<package-name>
 ```
+
+
+## Pipeline
+![image](https://user-images.githubusercontent.com/46423967/203637049-61547050-d12e-4914-8365-8ab79934331a.png)
 
 ## Build Prozess
 Jeder Service besitzt eine eigene Dockerfile, in der wir ein Multi-Stage-Docker-Image bauen. Hier wird im ersten Schritt der Service mittels Gradle gebaut und anschließend daraus das Docker Image erzeugt.
