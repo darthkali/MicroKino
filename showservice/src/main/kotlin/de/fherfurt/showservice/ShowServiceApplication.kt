@@ -1,5 +1,6 @@
 package de.fherfurt.showservice
 
+import de.fherfurt.showservice.models.Movie
 import de.fherfurt.showservice.models.Show
 import org.apache.kafka.clients.admin.NewTopic
 import org.apache.kafka.common.serialization.Serdes
@@ -14,7 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.kafka.annotation.EnableKafkaStreams
+import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.config.TopicBuilder
+import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.support.serializer.JsonSerde
 import java.time.Duration
 
@@ -38,7 +41,7 @@ class ShowServiceApplication {
 
     @Bean
     fun movieTopic(): NewTopic? {
-        return TopicBuilder.name("movie-show-response")
+        return TopicBuilder.name("movie-show")
             .compact()
             .build()
     }
@@ -52,9 +55,11 @@ class ShowServiceApplication {
             )
 
         stream.peek { k, o -> LOG.info("Output: {}", o) }
-            .to("movie")
+            .to("show")
         return stream
     }
+
+
 
 
 }

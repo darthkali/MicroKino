@@ -12,27 +12,23 @@ import javax.persistence.*
 //--------------------------------------------------//
 @Entity
 @Table(name = "show")
-data class Show(
+class Show(
         @Id
         @Column(name = "show_id")
         @GeneratedValue(strategy = GenerationType.AUTO)
         // TODO potentially use UUIDs here
-        val id: Long = 0,
+        val id: Long,
 
         @Column(name = "create_dt")
         val createDt: LocalDate? = LocalDate.now(),
 
-        @Column
         val showDate: LocalDateTime,
 
         // String oder Number?
-        @Column
         val theatre: String,
 
-        @Column
         val movieId: Long,
 
         // String oder Number?
-        @Column
         val location: String,
 )

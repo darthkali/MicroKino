@@ -1,7 +1,6 @@
-package de.fherfurt.moviesservice.models
+package de.fherfurt.movieservice.models
 
 import java.time.LocalDate
-import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
