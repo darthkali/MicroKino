@@ -14,27 +14,27 @@ import org.springframework.kafka.core.KafkaTemplate
 
 
 @SpringBootApplication
-@EnableKafka
-class MovieserviceApplication {
+//@EnableKafka
+class MovieserviceApplication //{
 
-    @Autowired
-    val movieRepository: MovieRepository? = null
-
-    private val LOG: Logger = LoggerFactory.getLogger(MovieserviceApplication::class.java)
+//    @Autowired
+//    val movieRepository: MovieRepository? = null
+//
+//    private val LOG: Logger = LoggerFactory.getLogger(MovieserviceApplication::class.java)
 
     fun main(args: Array<String>) {
         runApplication<MovieserviceApplication>(*args)
     }
 
-    @KafkaListener(id = "show", topics = ["show"], groupId = "movie")
-    fun onEvent(show: Show) {
-        LOG.info("Received: {}", show)
+//    @KafkaListener(id = "show", topics = ["show"], groupId = "movie")
+//    fun onEvent(show: Show) {
+//        LOG.info("Received: {}", show)
+//
+//        val movie: Movie? = movieRepository?.findMovieById(show.movieId)
+//
+//        val template: KafkaTemplate<Long, Movie>? = null
+//        template?.send("movie-show", show.movieId, movie)
+//    }
 
-        val movie: Movie? = movieRepository?.findMovieById(show.movieId)
 
-        val template: KafkaTemplate<Long, Movie>? = null
-        template?.send("movie-show", show.movieId, movie)
-    }
-
-
-}
+//}

@@ -23,19 +23,19 @@ class Movie (
 
         val name: String,
 
-        // in minutes
-        val playLength: Int = 90,
-
-        // cast
-        @ElementCollection
-        val casting: List<String>, //TODO Wurde von "cast" in "casting" umbenannt, da es sonst zu Problemen mit den SQL führt
-
-
-        // reviews
-        @ElementCollection
-        val reviews: List<String>,
-
-        val conclusion: String
-
-        // ratings
+//        // in minutes
+//        val playLength: Int = 90,
+//
+//        // cast
+//        @ElementCollection
+//        val casting: List<String>, //TODO Wurde von "cast" in "casting" umbenannt, da es sonst zu Problemen mit den SQL führt
+//
+//
+//        // reviews
+//        @ElementCollection
+//        val reviews: List<String>,
+//
+//        val conclusion: String
+//
+//        // ratings
 )

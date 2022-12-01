@@ -23,7 +23,7 @@ import java.time.Duration
 
 
 @SpringBootApplication
-@EnableKafkaStreams
+//@EnableKafkaStreams
 class ShowServiceApplication //{
 //    private val LOG: Logger = LoggerFactory.getLogger(ShowServiceApplication::class.java)
 

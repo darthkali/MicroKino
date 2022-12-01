@@ -39,6 +39,7 @@ class ShowServiceController {
         return showRepository?.findAll()?.toList()
     }
 
+
     @GetMapping("/show/byMovie/{movieId}")
     fun getShows(@PathVariable(value = "movieId") movieId: Long): List<Show>? {
         return showRepository?.findShowsByMovieId(movieId)?.toList()
@@ -66,20 +67,37 @@ class ShowServiceController {
 //        LOG.info("Received: {}", movie)
 //        return movie
 //    }
-
+//
     @Value("\${kafka.reuest.topic}")
     private val requestTopic: String? = null
 
     @Autowired
     private val replyingKafkaTemplate: ReplyingKafkaTemplate<String?, Long, Movie?>? = null
 
-    @PostMapping("/get-result")
-    @Throws(InterruptedException::class, ExecutionException::class)
-    fun getObject(@RequestBody show: Show): ResponseEntity<Movie?>? {
+//    @PostMapping("/get-result")
+//    @Throws(InterruptedException::class, ExecutionException::class)
+//    fun getObject(@RequestBody show: Show): ResponseEntity<Movie?>? {
+//        val record: ProducerRecord<String?, Long> =
+//            ProducerRecord(requestTopic, null, show.id.toString(), show.movieId) // key, value could be show and movieId
+//        val future: RequestReplyFuture<String?, Long, Movie?> = replyingKafkaTemplate!!.sendAndReceive(record)
+//        val response: ConsumerRecord<String?, Movie?>? = future.get()
+//        return ResponseEntity<Movie?>(response!!.value(), HttpStatus.OK)
+//    }
+
+//    @GetMapping("/show/list")
+//    fun getAllMovies(): List<Show>? {
+//        return showRepository?.findAll()?.toList()
+//    }
+
+    @PostMapping("/show/result")
+    fun getObject(): ResponseEntity<Movie?>? {
         val record: ProducerRecord<String?, Long> =
-            ProducerRecord(requestTopic, null, show.id.toString(), show.movieId) // key, value could be show and movieId
+            ProducerRecord(requestTopic, null, "test", 1L) // key, value could be show and movieId
         val future: RequestReplyFuture<String?, Long, Movie?> = replyingKafkaTemplate!!.sendAndReceive(record)
         val response: ConsumerRecord<String?, Movie?>? = future.get()
         return ResponseEntity<Movie?>(response!!.value(), HttpStatus.OK)
+
     }
+
+
 }

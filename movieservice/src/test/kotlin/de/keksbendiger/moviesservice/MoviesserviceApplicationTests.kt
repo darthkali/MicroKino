@@ -10,11 +10,11 @@ import java.lang.Math.random
 @ActiveProfiles("test")
 class MovieserviceApplicationTests {
 
-    @Test
-    fun contextLoads() {
-        val randomNumber = random() * 10
-        println("RandomNumber : $randomNumber")
-        //assert(randomNumber > 5)
-    }
+//    @Test
+//    fun contextLoads() {
+//        val randomNumber = random() * 10
+//        println("RandomNumber : $randomNumber")
+//        //assert(randomNumber > 5)
+//    }
 
 }

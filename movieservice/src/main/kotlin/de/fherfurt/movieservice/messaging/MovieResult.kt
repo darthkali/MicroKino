@@ -19,7 +19,9 @@ class MovieResult {
     @SendTo
     fun handle(movieId: Long): Movie? {
         println("Calculating Result...")
-        val total: Double = ThreadLocalRandom.current().nextDouble(2.5, 9.9)
-        return movieRepository?.findMovieById(movieId)
+//        val total: Double = ThreadLocalRandom.current().nextDouble(2.5, 9.9)
+//        return movieRepository?.findMovieById(movieId)
+
+        return Movie(id = 5, name = "Test")
     }
 }
