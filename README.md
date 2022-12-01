@@ -6,7 +6,7 @@
 
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
-![](assets/architecture-diagram.png)
+![image](https://user-images.githubusercontent.com/46423967/205011700-28812212-fc4b-4d65-95f0-cc1b95856219.png)
 
 
 
