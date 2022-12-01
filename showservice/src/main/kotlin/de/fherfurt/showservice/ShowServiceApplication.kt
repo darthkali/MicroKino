@@ -24,42 +24,42 @@ import java.time.Duration
 
 @SpringBootApplication
 @EnableKafkaStreams
-class ShowServiceApplication {
-    private val LOG: Logger = LoggerFactory.getLogger(ShowServiceApplication::class.java)
+class ShowServiceApplication //{
+//    private val LOG: Logger = LoggerFactory.getLogger(ShowServiceApplication::class.java)
 
     fun main(args: Array<String>) {
         runApplication<ShowServiceApplication>(*args)
     }
-
-
-    @Bean
-    fun showTopic(): NewTopic? {
-        return TopicBuilder.name("show")
-            .compact()
-            .build()
-    }
-
-    @Bean
-    fun movieTopic(): NewTopic? {
-        return TopicBuilder.name("movie-show")
-            .compact()
-            .build()
-    }
-
-    @Bean
-    fun stream(builder: StreamsBuilder): KStream<Long?, Show?>? {
-        val showSerde: JsonSerde<Show> = JsonSerde(Show::class.java)
-        val stream: KStream<Long?, Show?> =
-            builder.stream(
-                "movie-show", Consumed.with(Serdes.Long(), showSerde)
-            )
-
-        stream.peek { k, o -> LOG.info("Output: {}", o) }
-            .to("show")
-        return stream
-    }
-
-
-
-
-}
+//
+//
+//    @Bean
+//    fun showTopic(): NewTopic? {
+//        return TopicBuilder.name("show")
+//            .compact()
+//            .build()
+//    }
+//
+//    @Bean
+//    fun movieTopic(): NewTopic? {
+//        return TopicBuilder.name("movie-show")
+//            .compact()
+//            .build()
+//    }
+//
+//    @Bean
+//    fun stream(builder: StreamsBuilder): KStream<Long?, Show?>? {
+//        val showSerde: JsonSerde<Show> = JsonSerde(Show::class.java)
+//        val stream: KStream<Long?, Show?> =
+//            builder.stream(
+//                "movie-show", Consumed.with(Serdes.Long(), showSerde)
+//            )
+//
+//        stream.peek { k, o -> LOG.info("Output: {}", o) }
+//            .to("show")
+//        return stream
+//    }
+//
+//
+//
+//
+//}

@@ -4,12 +4,19 @@ import de.fherfurt.showservice.config.ShowServiceConfig
 import de.fherfurt.showservice.models.Movie
 import de.fherfurt.showservice.models.Show
 import de.fherfurt.showservice.repositories.ShowRepository
+import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.clients.producer.ProducerRecord
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.ResponseEntity
+import org.springframework.http.HttpStatus;
 import org.springframework.kafka.annotation.KafkaListener
+import org.springframework.kafka.requestreply.ReplyingKafkaTemplate
+import org.springframework.kafka.requestreply.RequestReplyFuture
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.bind.annotation.GetMapping
+import java.util.concurrent.ExecutionException
 
 
 //--------------------------------------------------//
@@ -54,9 +61,25 @@ class ShowServiceController {
         showRepository?.delete(show);
     }
 
-    @KafkaListener(id = "movie", topics = ["movie-show"], groupId = "movie")
-    fun onEvent(movie: Movie): Movie {
-        LOG.info("Received: {}", movie)
-        return movie
+//    @KafkaListener(id = "movie", topics = ["movie-show"], groupId = "movie")
+//    fun onEvent(movie: Movie): Movie {
+//        LOG.info("Received: {}", movie)
+//        return movie
+//    }
+
+    @Value("\${kafka.reuest.topic}")
+    private val requestTopic: String? = null
+
+    @Autowired
+    private val replyingKafkaTemplate: ReplyingKafkaTemplate<String?, Long, Movie?>? = null
+
+    @PostMapping("/get-result")
+    @Throws(InterruptedException::class, ExecutionException::class)
+    fun getObject(@RequestBody show: Show): ResponseEntity<Movie?>? {
+        val record: ProducerRecord<String?, Long> =
+            ProducerRecord(requestTopic, null, show.id.toString(), show.movieId) // key, value could be show and movieId
+        val future: RequestReplyFuture<String?, Long, Movie?> = replyingKafkaTemplate!!.sendAndReceive(record)
+        val response: ConsumerRecord<String?, Movie?>? = future.get()
+        return ResponseEntity<Movie?>(response!!.value(), HttpStatus.OK)
     }
 }
