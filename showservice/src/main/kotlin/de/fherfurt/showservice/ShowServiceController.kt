@@ -1,16 +1,20 @@
 package de.fherfurt.showservice
 
-import de.fherfurt.showservice.config.ShowServiceConfig
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import de.fherfurt.showservice.models.Movie
 import de.fherfurt.showservice.models.Show
 import de.fherfurt.showservice.repositories.ShowRepository
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.clients.producer.ProducerRecord
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.kafka.annotation.KafkaListener
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.kafka.requestreply.ReplyingKafkaTemplate
+import org.springframework.kafka.requestreply.RequestReplyFuture
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.bind.annotation.GetMapping
-
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
@@ -23,9 +27,11 @@ class ShowServiceController {
     val showRepository: ShowRepository? = null
 
     @Autowired
-    var showServiceConfig: ShowServiceConfig? = null
+    private val replyingKafkaTemplate: ReplyingKafkaTemplate<String?, Long, Movie?>? = null
 
-    private val LOG: Logger = LoggerFactory.getLogger(ShowServiceApplication::class.java)
+    @Value("\${kafka.reuest.topic}")
+    private val requestTopic: String? = null
+
 
     @GetMapping("/show/list")
     fun getAllMovies(): List<Show>? {
@@ -37,15 +43,24 @@ class ShowServiceController {
         return showRepository?.findShowsByMovieId(movieId)?.toList()
     }
 
-    @GetMapping("/show/{showId}")
-    fun getShowById(@PathVariable(value = "showId") showId: Long): Show? {
-        return showRepository?.findShowById(showId)
+    @GetMapping("/show/details/{showId}")
+    fun getObject(@PathVariable(value = "showId") showId: Long): ResponseEntity<String?>? {
+        val show = showRepository?.findShowById(showId)
+        val movieId = show?.movieId
+
+        val record: ProducerRecord<String?, Long> =
+            ProducerRecord(requestTopic, 0, show?.id.toString(), movieId) // key, value could be show and movieId
+        val future: RequestReplyFuture<String?, Long, Movie?> = replyingKafkaTemplate!!.sendAndReceive(record)
+        val response: ConsumerRecord<String?, Movie?>? = future.get()
+
+        val mapper = ObjectMapper().registerKotlinModule()
+        val movie = mapper.readValue<Movie?>(response!!.value().toString())
+
+        return ResponseEntity<String?>(mapper.writeValueAsString(movie) + show, HttpStatus.OK)
     }
 
     @PostMapping("/show/add/{movieId}")
     fun addShow(@RequestBody show: Show, @PathVariable(value = "movieId") movieId: Long) {
-        //val movie = movieRepository?.findById(movieId)
-        //show.show = movie?.get()
         showRepository?.save(show);
     }
 
@@ -54,9 +69,8 @@ class ShowServiceController {
         showRepository?.delete(show);
     }
 
-    @KafkaListener(id = "movie", topics = ["movie-show"], groupId = "movie")
-    fun onEvent(movie: Movie): Movie {
-        LOG.info("Received: {}", movie)
-        return movie
+    @GetMapping("/show/id/{showId}")
+    fun getShowById(@PathVariable(value = "showId") showId: Long): Show? {
+        return showRepository?.findShowById(showId)
     }
 }

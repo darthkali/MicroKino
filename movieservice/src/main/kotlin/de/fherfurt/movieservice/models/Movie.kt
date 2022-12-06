@@ -1,8 +1,15 @@
 package de.fherfurt.movieservice.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDate
-import javax.persistence.*
-
+import javax.persistence.Column
+import javax.persistence.ElementCollection
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.Table
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
@@ -11,31 +18,24 @@ import javax.persistence.*
 //--------------------------------------------------//
 @Entity
 @Table(name = "movie")
-class Movie (
-        @Id
-        @Column(name = "movie_id")
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        // TODO potentially use UUIDs here
-        val id: Long,
+class Movie(
+    @Id
+    @Column(name = "movie_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long,
 
-        @Column(name = "create_dt")
-        var createDt: LocalDate = LocalDate.now(),
+    @JsonIgnore
+    @Column(name = "create_dt")
+    var createDt: LocalDate = LocalDate.now(),
 
-        val name: String,
+    val name: String,
 
-        // in minutes
-        val playLength: Int = 90,
+    // in minutes
+    val playLength: Int = 90,
 
-        // cast
-        @ElementCollection
-        val casting: List<String>, //TODO Wurde von "cast" in "casting" umbenannt, da es sonst zu Problemen mit den SQL führt
+    @ElementCollection(fetch = FetchType.EAGER)
+    val casting: List<String> = listOf(),
 
-
-        // reviews
-        @ElementCollection
-        val reviews: List<String>,
-
-        val conclusion: String
-
-        // ratings
+    @Column(columnDefinition = "TEXT")
+    val conclusion: String = "a default movie conclusion"
 )

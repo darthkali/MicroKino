@@ -1,6 +1,5 @@
 package de.fherfurt.cinemaservice
 
-
 import de.fherfurt.cinemaservice.models.Cinema
 import de.fherfurt.cinemaservice.models.CinemaHall
 import de.fherfurt.cinemaservice.models.Location
@@ -10,13 +9,14 @@ import de.fherfurt.cinemaservice.repositories.LocationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
-
 @RestController
 class CinemaServiceController {
     @Autowired
     val cinemaHallRepository: CinemaHallRepository? = null
+
     @Autowired
     val cinemaRepository: CinemaRepository? = null
+
     @Autowired
     val locationRepository: LocationRepository? = null
 
@@ -31,7 +31,6 @@ class CinemaServiceController {
         return cinemaRepository?.findCinemaById(cinemaId)
     }
 
-
     @GetMapping("/locations")
     fun getAllLocations(): List<Location>? {
         return locationRepository?.findAll()?.toList()
@@ -42,7 +41,6 @@ class CinemaServiceController {
         return locationRepository?.findLocationById(locationId)
     }
 
-
     @GetMapping("/cinemaHalls")
     fun getAllCinemasHalls(): List<CinemaHall>? {
         return cinemaHallRepository?.findAll()?.toList()
@@ -52,6 +50,4 @@ class CinemaServiceController {
     fun getCinemaHallById(@PathVariable(value = "cinemaHallId") cinemaHallId: Long): CinemaHall? {
         return cinemaHallRepository?.findCinemaHallById(cinemaHallId)
     }
-
-
 }

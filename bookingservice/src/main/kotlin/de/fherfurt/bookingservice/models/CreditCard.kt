@@ -14,7 +14,7 @@ import javax.persistence.Table
 data class CreditCard(
     @Id
     @Column(name = "credit_card_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @Column(name = "create_dt")
@@ -31,4 +31,4 @@ data class CreditCard(
 
     @Column
     val expYear: Int,
-    )
+)
