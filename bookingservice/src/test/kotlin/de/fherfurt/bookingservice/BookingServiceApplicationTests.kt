@@ -8,12 +8,12 @@ import java.lang.Math.random
 @SpringBootTest
 @ActiveProfiles("test")
 class BookingsserviceApplicationTests {
-
-    @Test
-    fun contextLoads() {
-        val randomNumber = random() * 10
-        println("RandomNumber : $randomNumber")
-        //assert(randomNumber > 5)
-    }
+//
+//    @Test
+//    fun contextLoads() {
+//        val randomNumber = random() * 10
+//        println("RandomNumber : $randomNumber")
+//        //assert(randomNumber > 5)
+//    }
 
 }
