@@ -29,12 +29,8 @@ class Movie (
         val playLength: Int = 90,
 
         // cast
-        @ElementCollection
-        val casting: List<String> = listOf(), //TODO Wurde von "cast" in "casting" umbenannt, da es sonst zu Problemen mit den SQL führt
-
-        // reviews
-        @ElementCollection
-        val reviews: List<String> = listOf(),
+        @ElementCollection(fetch = FetchType.EAGER)
+        val casting: List<String> = listOf(),
 
         @Column(columnDefinition = "TEXT")
         val conclusion: String = "a default movie conclusion"

@@ -70,19 +70,20 @@ class ShowServiceController {
 //        return showRepository?.findAll()?.toList()
 //    }
 
-    @GetMapping("/show/details")
-    fun getObject():ResponseEntity<String?>? {
+    @GetMapping("/show/details/{showId}")
+    fun getObject(@PathVariable(value = "showId") showId: Long):ResponseEntity<String?>? {
+        val show = showRepository?.findShowById(showId)
+        val movieId = show?.movieId
+
         val record: ProducerRecord<String?, Long> =
-            ProducerRecord(requestTopic, 0, "test", 1L) // key, value could be show and movieId
+            ProducerRecord(requestTopic, 0, show?.id.toString(), movieId) // key, value could be show and movieId
         val future: RequestReplyFuture<String?, Long, Movie?> = replyingKafkaTemplate!!.sendAndReceive(record)
         val response: ConsumerRecord<String?, Movie?>? = future.get()
-
-        LOG.info("SENDING REQUEST OVER KAFKA")
 
         val mapper = ObjectMapper().registerKotlinModule()
         val movie = mapper.readValue<Movie?>(response!!.value().toString())
 
-        return ResponseEntity<String?>(mapper.writeValueAsString(movie), HttpStatus.OK)
+        return ResponseEntity<String?>(mapper.writeValueAsString(movie) + show, HttpStatus.OK)
     }
 
 
