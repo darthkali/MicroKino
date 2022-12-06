@@ -2,6 +2,7 @@ package de.fherfurt.showservice
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import de.fherfurt.showservice.config.ShowServiceConfig
 import de.fherfurt.showservice.models.Movie
 import de.fherfurt.showservice.models.Show
@@ -78,7 +79,7 @@ class ShowServiceController {
 
         LOG.info("SENDING REQUEST OVER KAFKA")
 
-        val mapper = ObjectMapper()
+        val mapper = ObjectMapper().registerKotlinModule()
         val movie = mapper.readValue<Movie?>(response!!.value().toString())
 
         return ResponseEntity<String?>(mapper.writeValueAsString(movie), HttpStatus.OK)
