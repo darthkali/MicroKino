@@ -15,14 +15,14 @@ import javax.persistence.Table
 data class Visitor(
     @Id
     @Column(name = "visitor_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @Column(name = "create_dt")
     private val createDt: LocalDate? = LocalDate.now(),
 
     @Column
-    val name: String = "",
+    val firstName: String = "",
 
     @Column
     val lastName: String,
