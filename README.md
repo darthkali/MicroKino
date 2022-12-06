@@ -8,10 +8,12 @@ Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
 ## Projekt Struktur
 ### Architektur
-![image](https://user-images.githubusercontent.com/46423967/205011700-28812212-fc4b-4d65-95f0-cc1b95856219.png)
+![image](https://user-images.githubusercontent.com/46423967/205894705-34bf295d-3280-488d-a34f-1915ebca985f.png)
+
 
 ### Pipeline
-![image](https://user-images.githubusercontent.com/46423967/203637049-61547050-d12e-4914-8365-8ab79934331a.png)
+![image](https://user-images.githubusercontent.com/46423967/205896206-3bc56bc8-43f6-4e49-ac21-29e577fb59ab.png)
+
 
 
 ### Module in IntelliJ laden
