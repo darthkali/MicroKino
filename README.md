@@ -6,12 +6,17 @@
 
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
-![image](https://user-images.githubusercontent.com/46423967/205011700-28812212-fc4b-4d65-95f0-cc1b95856219.png)
-
-
-
-
 ## Projekt Struktur
+### Architektur
+![image](https://user-images.githubusercontent.com/46423967/205894705-34bf295d-3280-488d-a34f-1915ebca985f.png)
+
+
+### Pipeline
+![image](https://user-images.githubusercontent.com/46423967/205896206-3bc56bc8-43f6-4e49-ac21-29e577fb59ab.png)
+
+
+
+### Module in IntelliJ laden
 Um die einzelnen Services in IntelliJ direkt aus dem Main-Projekt (MikroKino)  zu benutzen, müssen diese als Modul geladen werden. Dazu muss ein neues Modul in den Projekteinstellungen hinzugefügt werden:
 
 
@@ -19,51 +24,9 @@ Um die einzelnen Services in IntelliJ direkt aus dem Main-Projekt (MikroKino)  z
 ![](assets/new-module-import-module.png)
 
 
-## GitHub Action Workflow
-
-[//]: # (### Environment Variablen)
-
-[//]: # (Um den names des packages an den Workflownamen zu binden, bietet GitHub eigene Environment Variablen an. Mit dem `GITHUB_WORKFLOW` kann der Name, den man dem Workflow gegeben hat, als Packagename benutzt werden. )
-
-[//]: # (https://docs.github.com/en/actions/learn-github-actions/environment-variables)
+## Kafka
 
 
-### Semgrep - Code Smell Check
-https://github.com/marketplace/actions/semgrep-action
-
-```yaml
-  semgrep:
-    name: Scan
-    runs-on: ubuntu-20.04
-    container:
-      image: returntocorp/semgrep
-    steps:
-    - uses: actions/checkout@v3
-    - run: semgrep ci
- ```
-
-
-## Pull Package von GitHub Registry
-Um das Paackage welches ihr in eure private GitHub Registry deployed habt zu pullen, müsst ihr euch zunächst Authentifizieren. Das erfolgt über den folgenden Befehl
-
-```bash
-  docker login ghcr.io
-```
-
-Hierbei werden ihr aufgefordert einen Usernamen und ein Passwort einzugeben. Für das Passswort benötigt ihr einen Personal Access Token. Diesen könnt Ihr euch unter eruem Account anlegen.
-
-
-<img width="1117" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/195088292-d74ce8ed-251d-4513-8f2f-db2f6e3d99b4.png">
-
-Danach könnt Ihr das Package pullen:
-
-```bash
-  docker pull ghcr.io/<namespace>/<package-name>
-```
-
-
-## Pipeline
-![image](https://user-images.githubusercontent.com/46423967/203637049-61547050-d12e-4914-8365-8ab79934331a.png)
 
 ## Build Prozess
 Jeder Service besitzt eine eigene Dockerfile, in der wir ein Multi-Stage-Docker-Image bauen. Hier wird im ersten Schritt der Service mittels Gradle gebaut und anschließend daraus das Docker Image erzeugt.
@@ -223,3 +186,40 @@ myservice:
 server.port=8090        # [2]
 server.address=0.0.0.0  # [4]
 ```
+
+## Deployment
+### Pull Package von GitHub Registry
+Um das Package welches ihr in eure private GitHub Registry deployed habt zu pullen, müsst ihr euch zunächst Authentifizieren. Das erfolgt über den folgenden Befehl
+
+```bash
+  docker login ghcr.io
+```
+
+Hierbei werdet ihr aufgefordert einen Usernamen und ein Passwort einzugeben. Für das Passswort benötigt ihr einen Personal Access Token. Diesen könnt Ihr euch unter eruem Account anlegen.
+
+
+<img width="1117" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/195088292-d74ce8ed-251d-4513-8f2f-db2f6e3d99b4.png">
+
+Danach könnt Ihr das Package pullen:
+
+```bash
+  docker pull ghcr.io/<namespace>/<package-name>
+```
+### Kubernetes
+
+---
+
+### misc
+### Semgrep - Code Smell Check
+https://github.com/marketplace/actions/semgrep-action
+
+```yaml
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-20.04
+    container:
+      image: returntocorp/semgrep
+    steps:
+    - uses: actions/checkout@v3
+    - run: semgrep ci
+ ```

@@ -86,8 +86,8 @@ services:
 
   movieservice:
     build:
-      context: ../movieservice
-      dockerfile: ../movieservice/Dockerfile
+      context: ../../movieservice
+      dockerfile: ../../movieservice/Dockerfile
     image: "fh-erfurt/microkino:movieservice"
     deploy:
       restart_policy:
@@ -113,8 +113,8 @@ services:
 
   cinemaservice:
     build:
-      context: ../cinemaservice
-      dockerfile: ../cinemaservice/Dockerfile
+      context: ../../cinemaservice
+      dockerfile: ../../cinemaservice/Dockerfile
     image: "fh-erfurt/microkino:cinemaservice"
     deploy:
       restart_policy:
@@ -138,8 +138,8 @@ services:
 
   showservice:
     build:
-      context: ../showservice
-      dockerfile: ../showservice/Dockerfile
+      context: ../../showservice
+      dockerfile: ../../showservice/Dockerfile
     image: "fh-erfurt/microkino:showservice"
     deploy:
       restart_policy:
@@ -162,8 +162,8 @@ services:
 
   bookingservice:
     build:
-      context: ../bookingservice
-      dockerfile: ../bookingservice/Dockerfile
+      context: ../../bookingservice
+      dockerfile: ../../bookingservice/Dockerfile
     image: "fh-erfurt/microkino:bookingservice"
     deploy:
       restart_policy:
