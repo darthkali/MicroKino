@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
 
-
 @Entity
 @Table(name = "visitor")
 data class Visitor(
@@ -43,5 +42,4 @@ data class Visitor(
     @ManyToOne
     @JoinColumn(name = "address_id")
     val address: Address,
-
-    )
+)

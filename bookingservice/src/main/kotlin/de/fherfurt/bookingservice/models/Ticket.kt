@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
 
-
 @Entity
 @Table(name = "ticket")
 data class Ticket(
@@ -42,5 +41,4 @@ data class Ticket(
 
     @Column
     val visitorId: Long,
-
-    )
+)

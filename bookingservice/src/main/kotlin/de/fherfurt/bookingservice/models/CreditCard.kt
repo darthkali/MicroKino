@@ -31,4 +31,4 @@ data class CreditCard(
 
     @Column
     val expYear: Int,
-    )
+)

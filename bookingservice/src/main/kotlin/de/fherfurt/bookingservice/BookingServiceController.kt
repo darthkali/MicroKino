@@ -1,6 +1,5 @@
 package de.fherfurt.bookingservice
 
-
 import de.fherfurt.bookingservice.models.Address
 import de.fherfurt.bookingservice.models.CreditCard
 import de.fherfurt.bookingservice.models.Ticket
@@ -11,7 +10,6 @@ import de.fherfurt.bookingservice.repositories.TicketRepository
 import de.fherfurt.bookingservice.repositories.VisitorRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-
 
 @RestController
 class BookingServiceController {
@@ -38,7 +36,6 @@ class BookingServiceController {
         return creditCardRepository?.findCreditCardById(creditCardId)
     }
 
-
     @GetMapping("/tickets")
     fun getAllTickets(): List<Ticket>? {
         return ticketRepository?.findAll()?.toList()
@@ -49,12 +46,10 @@ class BookingServiceController {
         return ticketRepository?.findTicketById(ticketId)
     }
 
-
     @GetMapping("/address/{addressId}")
     fun getAddressById(@PathVariable(value = "addressId") addressId: Long): Address? {
         return addressRepository?.findAddressById(addressId)
     }
-
 
     @GetMapping("/users")
     fun getAllBookingsHalls(): List<Visitor>? {
@@ -65,6 +60,4 @@ class BookingServiceController {
     fun getVisitorById(@PathVariable(value = "userId") userId: Long): Visitor? {
         return visitorRepository?.findVisitorById(userId)
     }
-
-
 }
