@@ -1,4 +1,4 @@
-package de.fherfurt.showservice.config
+package de.fherfurt.showservice.messaging
 
 import de.fherfurt.showservice.models.Movie
 import org.springframework.beans.factory.annotation.Value
@@ -9,7 +9,6 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer
 import org.springframework.kafka.requestreply.ReplyingKafkaTemplate
-
 
 @Configuration
 class KafkaConfig {
@@ -40,6 +39,4 @@ class KafkaConfig {
         factory.setReplyTemplate(kafkaTemplate)
         return kafkaTemplate
     }
-
-
 }

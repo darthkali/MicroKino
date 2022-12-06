@@ -2,8 +2,12 @@ package de.fherfurt.showservice.models
 
 import java.time.LocalDate
 import java.time.LocalDateTime
-import javax.persistence.*
-
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.Table
 
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
@@ -13,22 +17,19 @@ import javax.persistence.*
 @Entity
 @Table(name = "show")
 class Show(
-        @Id
-        @Column(name = "show_id")
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        // TODO potentially use UUIDs here
-        val id: Long,
+    @Id
+    @Column(name = "show_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long,
 
-        @Column(name = "create_dt")
-        val createDt: LocalDate? = LocalDate.now(),
+    @Column(name = "create_dt")
+    val createDt: LocalDate? = LocalDate.now(),
 
-        val showDate: LocalDateTime,
+    val showDate: LocalDateTime,
 
-        // String oder Number?
-        val theatre: String,
+    val theatre: String,
 
-        val movieId: Long,
+    val movieId: Long,
 
-        // String oder Number?
-        val location: String,
+    val location: String,
 )
