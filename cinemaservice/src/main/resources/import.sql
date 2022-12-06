@@ -16,16 +16,6 @@ INSERT INTO cinema_hall (hall_number, seats) VALUES (1, 100);
 INSERT INTO cinema_hall (hall_number, seats) VALUES (2, 200);
 INSERT INTO cinema_hall (hall_number, seats) VALUES (3, 300);
 
--- INSERT INTO cinema_hall (hall_number, seats, cinema_id) VALUES (1, 100, 1);
--- INSERT INTO cinema_hall (hall_number, seats, cinema_id) VALUES (2, 200, 1);
--- INSERT INTO cinema_hall (hall_number, seats, cinema_id) VALUES (3, 300, 1);
--- INSERT INTO cinema_hall (hall_number, seats, cinema_id) VALUES (1, 100, 2);
--- INSERT INTO cinema_hall (hall_number, seats, cinema_id) VALUES (2, 200, 2);
--- INSERT INTO cinema_hall (hall_number, seats, cinema_id) VALUES (3, 300, 2);
--- INSERT INTO cinema_hall (hall_number, seats, cinema_id) VALUES (1, 100, 3);
--- INSERT INTO cinema_hall (hall_number, seats, cinema_id) VALUES (2, 200, 3);
--- INSERT INTO cinema_hall (hall_number, seats, cinema_id) VALUES (3, 300, 3);
-
 
 
 
