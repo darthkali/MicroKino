@@ -1,13 +1,12 @@
 package de.fherfurt.cinemaservice.models
 
 import java.time.LocalDate
-import javax.persistence.Id
 import javax.persistence.Column
+import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
-import javax.persistence.Entity
+import javax.persistence.Id
 import javax.persistence.Table
-
 
 @Entity
 @Table(name = "cinemaHall")

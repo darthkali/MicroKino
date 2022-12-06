@@ -1,16 +1,14 @@
 package de.fherfurt.cinemaservice.models
 
 import java.time.LocalDate
-import javax.persistence.Id
 import javax.persistence.Column
+import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
-import javax.persistence.Entity
+import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
 import javax.persistence.Table
-
 
 @Entity
 @Table(name = "cinema")
@@ -29,7 +27,4 @@ data class Cinema(
     @ManyToOne
     @JoinColumn(name = "location_id")
     val location: Location,
-
-    //@OneToMany
-    //val cinemaHalls: List<CinemaHall>,
 )
