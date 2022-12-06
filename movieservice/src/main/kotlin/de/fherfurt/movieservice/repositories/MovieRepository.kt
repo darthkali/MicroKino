@@ -4,7 +4,6 @@ import de.fherfurt.movieservice.models.Movie
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
-
 //--------------------------------------------------//
 // author:   Keksbendiger <keksbendiger@gmail.com>
 // project:  movieservice
@@ -12,5 +11,5 @@ import org.springframework.stereotype.Repository
 //--------------------------------------------------//
 @Repository
 interface MovieRepository : CrudRepository<Movie, Long> {
-    fun findMovieById(movieId : Long) : Movie
+    fun findMovieById(movieId: Long): Movie
 }

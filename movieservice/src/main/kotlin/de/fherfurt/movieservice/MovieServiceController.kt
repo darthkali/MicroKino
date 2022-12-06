@@ -1,12 +1,10 @@
 package de.fherfurt.movieservice
 
 
-import de.fherfurt.movieservice.config.MovieServiceConfig
 import de.fherfurt.movieservice.models.Movie
 import de.fherfurt.movieservice.repositories.MovieRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.bind.annotation.GetMapping
 
 
 //--------------------------------------------------//
@@ -19,24 +17,6 @@ class MovieServiceController {
 
     @Autowired
     val movieRepository: MovieRepository? = null
-
-    @Autowired
-    var moviesConfig: MovieServiceConfig? = null
-
-
-//    //--- Properties
-//    @GetMapping("/movies/properties")
-//    @kotlin.Throws(JsonProcessingException::class)
-//    fun getPropertyDetails(): String? {
-//        val ow: ObjectWriter = ObjectMapper().writer().withDefaultPrettyPrinter()
-//
-//        if (moviesConfig != null) {
-//            val properties = Properties(moviesConfig!!.msg!!, moviesConfig!!.buildVersion!!, moviesConfig!!.mailDetails!!, moviesConfig!!.activeBranches!!)
-//            return ow.writeValueAsString(properties)
-//        }
-//
-//        return null
-//    }
 
 
     @GetMapping("/movie/list")
@@ -58,6 +38,4 @@ class MovieServiceController {
     fun removeMovie(@RequestBody movie: Movie) {
         movieRepository?.delete(movie);
     }
-
-
 }

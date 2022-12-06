@@ -14,7 +14,6 @@ data class Show(
     @Id
     @Column(name = "show_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    // TODO potentially use UUIDs here
     val id: Long = 0,
 
     @Column(name = "create_dt")
