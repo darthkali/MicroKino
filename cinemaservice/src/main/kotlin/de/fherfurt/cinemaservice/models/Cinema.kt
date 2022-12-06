@@ -17,7 +17,7 @@ import javax.persistence.Table
 data class Cinema(
     @Id
     @Column(name = "cinema_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @Column(name = "create_dt")
@@ -27,8 +27,9 @@ data class Cinema(
     val name: String = "",
 
     @ManyToOne
-    val location: Location ,
+    @JoinColumn(name = "location_id")
+    val location: Location,
 
-    @OneToMany
-    val cinemaHalls: List<CinemaHall>,
+    //@OneToMany
+    //val cinemaHalls: List<CinemaHall>,
 )

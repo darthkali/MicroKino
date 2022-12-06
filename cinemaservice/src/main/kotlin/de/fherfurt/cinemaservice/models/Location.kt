@@ -14,7 +14,7 @@ import javax.persistence.Table
 data class Location(
     @Id
     @Column(name = "location_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @Column(name = "create_dt")
