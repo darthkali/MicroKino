@@ -1,5 +1,6 @@
 package de.fherfurt.showservice.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDate
 import javax.persistence.Column
 import javax.persistence.ElementCollection
@@ -18,6 +19,7 @@ class Movie (
     // TODO potentially use UUIDs here
     val id: Long,
 
+    @JsonIgnore
     @Column(name = "create_dt")
     var createDt: LocalDate = LocalDate.now(),
 

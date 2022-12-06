@@ -1,5 +1,7 @@
 package de.fherfurt.showservice
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import de.fherfurt.showservice.config.ShowServiceConfig
 import de.fherfurt.showservice.models.Movie
 import de.fherfurt.showservice.models.Show
@@ -68,12 +70,18 @@ class ShowServiceController {
 //    }
 
     @GetMapping("/show/details")
-    fun getObject():ResponseEntity<Movie?>? {
+    fun getObject():ResponseEntity<String?>? {
         val record: ProducerRecord<String?, Long> =
-            ProducerRecord(requestTopic, null, "test", 1L) // key, value could be show and movieId
+            ProducerRecord(requestTopic, 0, "test", 1L) // key, value could be show and movieId
         val future: RequestReplyFuture<String?, Long, Movie?> = replyingKafkaTemplate!!.sendAndReceive(record)
         val response: ConsumerRecord<String?, Movie?>? = future.get()
-        return ResponseEntity<Movie?>(response!!.value(), HttpStatus.OK)
+
+        LOG.info("SENDING REQUEST OVER KAFKA")
+
+        val mapper = ObjectMapper()
+        val movie = mapper.readValue<Movie?>(response!!.value().toString())
+
+        return ResponseEntity<String?>(mapper.writeValueAsString(movie), HttpStatus.OK)
     }
 
 
