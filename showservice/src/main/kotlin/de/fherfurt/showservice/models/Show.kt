@@ -15,7 +15,7 @@ import javax.persistence.*
 class Show(
         @Id
         @Column(name = "show_id")
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         // TODO potentially use UUIDs here
         val id: Long,
 

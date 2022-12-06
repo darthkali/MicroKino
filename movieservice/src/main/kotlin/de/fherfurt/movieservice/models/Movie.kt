@@ -15,7 +15,7 @@ import javax.persistence.*
 class Movie (
         @Id
         @Column(name = "movie_id")
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         // TODO potentially use UUIDs here
         val id: Long,
 
@@ -25,19 +25,20 @@ class Movie (
 
         val name: String,
 
-//        // in minutes
-//        val playLength: Int = 90,
-//
-//        // cast
-//        @ElementCollection
-//        val casting: List<String>, //TODO Wurde von "cast" in "casting" umbenannt, da es sonst zu Problemen mit den SQL führt
-//
-//
-//        // reviews
-//        @ElementCollection
-//        val reviews: List<String>,
-//
-//        val conclusion: String
+        // in minutes
+        val playLength: Int = 90,
+
+        // cast
+        @ElementCollection
+        val casting: List<String> = listOf(), //TODO Wurde von "cast" in "casting" umbenannt, da es sonst zu Problemen mit den SQL führt
+
+
+        // reviews
+        @ElementCollection
+        val reviews: List<String> = listOf(),
+
+        @Column(columnDefinition = "TEXT")
+        val conclusion: String = "a default movie conclusion"
 //
 //        // ratings
 )
