@@ -6,6 +6,7 @@ import javax.persistence.Column
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Entity
+import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
 
@@ -40,6 +41,7 @@ data class Visitor(
     val membership: Boolean,
 
     @ManyToOne
+    @JoinColumn(name = "address_id")
     val address: Address,
 
     )
