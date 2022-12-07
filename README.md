@@ -6,12 +6,18 @@
 
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
-![image](https://user-images.githubusercontent.com/46423967/205011700-28812212-fc4b-4d65-95f0-cc1b95856219.png)
-
-
-
-
 ## Projekt Struktur
+### Architektur
+![image](https://user-images.githubusercontent.com/46423967/205976256-8cf2b721-6b22-4d1a-8734-2d0e780b96ac.png)
+
+
+
+### Pipeline
+![image](https://user-images.githubusercontent.com/46423967/205896206-3bc56bc8-43f6-4e49-ac21-29e577fb59ab.png)
+
+
+
+### Module in IntelliJ laden
 Um die einzelnen Services in IntelliJ direkt aus dem Main-Projekt (MikroKino)  zu benutzen, müssen diese als Modul geladen werden. Dazu muss ein neues Modul in den Projekteinstellungen hinzugefügt werden:
 
 
@@ -19,51 +25,13 @@ Um die einzelnen Services in IntelliJ direkt aus dem Main-Projekt (MikroKino)  z
 ![](assets/new-module-import-module.png)
 
 
-## GitHub Action Workflow
+## Kafka
+Wir haben Kafka exemplarisch zwischen Movie und Show implementiert.
+Der Endpunkt **/show/details/{showId}** nutzt Kafka-Templates und den Request-Response-Mechanismus, um asynchron Filmdetails aus dem Movieservice zu erfragen, die anschließend gemeinsam mit den Informationen zur Filmvorstellung zurückgegeben werden.
+[Templates](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/messaging/KafkaConfig.kt#L21-L41 "Templates"),
+[Request-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/ShowServiceController.kt#L46-L60 "Request"),
+[Response-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/movieservice/src/main/kotlin/de/fherfurt/movieservice/messaging/MovieResult.kt#L10-L22 "Response")
 
-[//]: # (### Environment Variablen)
-
-[//]: # (Um den name des packages an den Workflownamen zu binden, bietet GitHub eigene Environment Variablen an. Mit dem `GITHUB_WORKFLOW` kann der Name, den man dem Workflow gegeben hat, als Package name benutzt werden. )
-
-[//]: # (https://docs.github.com/en/actions/learn-github-actions/environment-variables)
-
-
-### Semgrep - Code Smell Check
-https://github.com/marketplace/actions/semgrep-action
-
-```yaml
-  semgrep:
-    name: Scan
-    runs-on: ubuntu-20.04
-    container:
-      image: returntocorp/semgrep
-    steps:
-    - uses: actions/checkout@v3
-    - run: semgrep ci
- ```
-
-
-## Pull Package von GitHub Registry
-Um das Package welches ihr in eure private GitHub Registry deployed habt zu pullen, müsst ihr euch zunächst Authentifizieren. Das erfolgt über den folgenden Befehl
-
-```bash
-  docker login ghcr.io
-```
-
-Hierbei werden ihr aufgefordert einen Usernamen und ein Passwort einzugeben. Für das Passwort benötigt ihr einen Personal Access Token. Diesen könnt Ihr euch unter eurem Account anlegen.
-
-
-<img width="1117" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/195088292-d74ce8ed-251d-4513-8f2f-db2f6e3d99b4.png">
-
-Danach könnt Ihr das Package pullen:
-
-```bash
-  docker pull ghcr.io/<namespace>/<package-name>
-```
-
-
-## Pipeline
-![image](https://user-images.githubusercontent.com/46423967/203637049-61547050-d12e-4914-8365-8ab79934331a.png)
 
 ## Build Prozess
 Jeder Service besitzt eine eigene Dockerfile, in der wir ein Multi-Stage-Docker-Image bauen. Hier wird im ersten Schritt der Service mittels Gradle gebaut und anschließend daraus das Docker Image erzeugt.
@@ -102,7 +70,7 @@ Somit haben wir die Option zwei Docker-Compose Dateien zu bauen: Eine für den P
 ### Development
 Hier können wir die gesamte Infrastruktur lokal hochfahren, und müssen nicht jede Änderung der Services hochladen und warten, bis die Packages gebaut werden.
 
-```dockerfile
+```yml
 
 version: "3.8"
 
@@ -139,7 +107,7 @@ services:
 ### Produktions- und Testbetrieb
 Diese Compose Datei nutzt die Packages, welche automatisiert in den GitHub Action Workflows erzeugt werden. Diese wird dann für den Produktions- und Testbetrieb (Deploymentprozess) genutzt.
 
-```dockerfile
+```yml
 version: "3.8"
 
 services:
@@ -159,21 +127,22 @@ services:
 ```
 
 Wenn mehrere Compose-Files im selben Verzeichnis liegen, kann man sie mit dem '-f' Flag spezifizieren:
-```
+```bash
 docker compose -f compose-local.yml up -d --build --force-recreate
 ```
-**Anmerkung**: beim wiederholten Erzeugen von Container Images mit identischen Tags werden die bestehenden Images nicht überschrieben, sondern nur die Tags gelöscht.
-Alte Images bleiben dann einfach ungenutzt liegen - in unserem Fall sind diese jeweils > 500mb. Mit dem Befehl
-```
-docker image prune -f
-```
-können diese entfernt werden. In unserem Projekt übernimmt das die ausführbare Datei recreate-local.bat bzw. recreate-local.sh unter */infrastructure/*.
+>  **Anmerkung**: beim wiederholten Erzeugen von Container Images mit identischen Tags werden die bestehenden Images nicht überschrieben, sondern nur die Tags gelöscht.
+>  Alte Images bleiben dann einfach ungenutzt liegen - in unserem Fall sind diese jeweils > 500mb. Mit dem Befehl
+>  ```bash
+>  docker image prune -f
+>  ```
+>  können diese entfernt werden.
+>  In unserem Projekt übernimmt das die ausführbare Datei [recreate-local.bat](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/recreate-local.bat) bzw. [recreate-local.sh](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/recreate-local.sh).
 
 ### Recycling
 Die Compose-Files für das Hochfahren in Produktivumgebung bzw. Bauen und Starten zu lokalen Testzwecken unterscheiden sich eigentlich nur in der Quelle der Images und ggf. einigen freigegebenen Ports. Um nicht alles doppelt schreiben oder bei Bedarf ändern zu müssen, machen wir uns das Compose-Attribut **extends** zunutze. Leider ist dieses noch nicht in Compose v3 implementiert, deshalb verwenden wir Compose v2. Wir können somit Dienste definieren, die auf Beschreibungen in anderen Dateien verweisen - und nach Belieben einzelne Attribute überschreiben. Zu beachten ist, dass **depends_on** nicht mitvererbt wird.
 
-Beispiel aus */infrastructure/compose-local.yml*
-```
+Beispiel aus [compose-local.yml](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/compose-local.yml)
+```yml
 version: "2.4"
 
 services:
@@ -209,8 +178,8 @@ services:
       - kafka
       - movieservice_db
 ```
-Und ein Part aus */infrastructure/common_infrastructure.yml*
-```
+Und ein Part aus [common_infrastructure.yml](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/common_infrastructure)
+```yml
   zookeeper:
     image: wurstmeister/zookeeper
     command: [
@@ -242,10 +211,10 @@ Und ein Part aus */infrastructure/common_infrastructure.yml*
 ```
 ### Windows vs. Unix
 Im obenstehenden Beispiel taucht die Umgebungsvariable **${PATH_PREFIX}** auf. Dateipfadangaben für Docker Volumes erfordern unter Windows zu Beginn einen zusätzlichen Slash **/**,
-der über die Datei */infrastructure/.env* definiert wird. Standardmäßig heißt die Datei */infrastructure/.env.removeThisExtensionOnWindows* - bei Bedarf löscht man einfach die Endung. Andernfalls ersetzt Compose die unbekannte Variable durch einen leeren String und macht sie somit wie gewünscht unwirksam.
+der über die Datei */infrastructure/.env* definiert wird. Standardmäßig heißt die Datei [.env.removeThisExtensionOnWindows](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/.env.removeThisExtensionOnWindows) - bei Bedarf löscht man einfach die Endung. Andernfalls ersetzt Compose die unbekannte Variable durch einen leeren String und macht sie somit wie gewünscht unwirksam.
 
 ### GitHub Actions Workflow
-In den Workflows muss nun kein eigener Gradle Build implementiert sein. Hier braucht es lediglich den Checkout, das Login in die Container-Registry und im Anschluss das Bauen sowie das Pushen des Docker Images. Ein separater Test Step ist ebenfalls nicht nötig, da dieser schon beim Build des Services ausgeführt wird. Schlägt dieser fehl, läuft der Workflow nicht durch und gibt die passende Fehlermeldung aus.
+In den Workflows muss nun kein eigener Gradle Build implementiert sein. Hier braucht es lediglich den Checkout, das Login in die Container-Registry und im Anschluss das Bauen sowie das Pushen des Docker Images. Ein separater Test Step  ist ebenfalls nicht nötig, da dieser schon beim Build des Services ausgeführt wird. Schlägt dieser fehl, läuft der Workflow nicht durch und gibt die passende Fehlermeldung aus.
 
 
 ```yml
@@ -280,10 +249,11 @@ jobs:
           context: ./movieservice/
           file: ./movieservice/Dockerfile
           ...
- ```
+```
+
 
 ## Traefik
-.. wird über die docker-compose.yml konfiguriert.
+.. wird über die [docker-compose.yml](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/common_infrastructure.yml#L4-L38) konfiguriert.
 Wir haben für jeden Service einen eigenen Router erstellt<sup>[1]</sup>.
 Da Traefik direkt an spezifische Container routen kann, kann jeder Service den selben Port nutzen<sup>[2]</sup> (in unserem Fall in den jeweiligen application.properties konfiguriert, wir nutzen 8090). Weil wir die Ports allerdings nicht exposen - somit keine "ports"-Definition angeben, müssen wir dem jeweiligen Router noch den Port mitteilen<sup>[3]</sup>.
 Bei Spring muss zusätzlich beachtet werden, dass der jeweilige Webserver standardmäßig auf 'localhost' gebunden wird. Das funktioniert wiederum mit Docker nicht - die Adresse muss (ebenfalls in application.properties) auf 0.0.0.0<sup>[4]</sup> geändert werden.
@@ -304,14 +274,44 @@ server.port=8090        # [2]
 server.address=0.0.0.0  # [4]
 ```
 
-## Kafka
-Wir haben Kafka exemplarisch zwischen Movie und Show implementiert.
-Der Endpunkt **/show/details/{showId}** nutzt Kafka-Templates und den Request-Response-Mechanismus, um asynchron Filmdetails aus dem Movieservice zu erfragen, die anschließend gemeinsam mit den Informationen zur Filmvorstellung zurückgegeben werden.
-[Templates](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/messaging/KafkaConfig.kt#L21-L41 "Templates"),
-[Request-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/ShowServiceController.kt#L46-L60 "Request"),
-[Response-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/movieservice/src/main/kotlin/de/fherfurt/movieservice/messaging/MovieResult.kt#L10-L22 "Response")
+## Deployment
+### Pull Package von GitHub Registry
+Um das Package welches ihr in eure private GitHub Registry deployed habt zu pullen, müsst ihr euch zunächst Authentifizieren. Das erfolgt über den folgenden Befehl
 
-## Anmerkung zu Spring REST-Mappings
+```bash
+  docker login ghcr.io
+```
+
+Hierbei werdet ihr aufgefordert einen Usernamen und ein Passwort einzugeben. Für das Passwort benötigt ihr einen Personal Access Token. Diesen könnt Ihr euch unter eurem Account anlegen.
+
+
+<img width="1117" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/195088292-d74ce8ed-251d-4513-8f2f-db2f6e3d99b4.png">
+
+Danach könnt Ihr das Package pullen:
+
+```bash
+  docker pull ghcr.io/<namespace>/<package-name>
+```
+### Kubernetes
+
+---
+
+## misc
+### Semgrep - Code Smell Check
+https://github.com/marketplace/actions/semgrep-action
+
+```yaml
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-20.04
+    container:
+      image: returntocorp/semgrep
+    steps:
+    - uses: actions/checkout@v3
+    - run: semgrep ci
+ ```
+ 
+### Anmerkung zu Spring REST-Mappings
 Uns ist aufgefallen, dass man die Verwendung von Mappings der Struktur
 ```
     @GetMapping("/show/list")
