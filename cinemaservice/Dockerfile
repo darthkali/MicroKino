@@ -22,5 +22,6 @@ ENV LANGUAGE='en_US:en'
 # We make four distinct layers so if there are application changes the library layers can be re-used
 COPY --from=build --chown=185 /workspace/app/build/libs/cinemaservice-0.0.1-SNAPSHOT.jar cinemaservice-0.0.1-SNAPSHOT.jar
 
+EXPOSE 8090
 #execute the application
 ENTRYPOINT ["java","-jar","/cinemaservice-0.0.1-SNAPSHOT.jar"]
