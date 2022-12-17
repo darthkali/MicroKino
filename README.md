@@ -1,8 +1,9 @@
 # MicroKino
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/fh-erfurt/MicroKino/bookingservice?label=Booking&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/fh-erfurt/MicroKino/cinemaservice?label=Cinema&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/fh-erfurt/MicroKino/movieservice?label=Movie&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/fh-erfurt/MicroKino/showservice?label=Show&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/bookingservice.yml?branch=main&label=Booking&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/cinemaservice.yml?branch=main&label=Cinema&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/movieservice.yml?branch=main&label=Movie&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/showservice.yml?branch=main&label=Show&style=for-the-badge)
+
 
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
