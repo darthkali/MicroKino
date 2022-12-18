@@ -29,14 +29,4 @@ class KafkaConfig {
         return ReplyingKafkaTemplate(producerFactory, replyContainer)
     }
 
-    @Bean
-    fun replyTemplate(
-        producerFactory: ProducerFactory<String, Movie>?,
-        factory: ConcurrentKafkaListenerContainerFactory<String?, Movie?>
-    ): KafkaTemplate<String, Movie> {
-        val kafkaTemplate: KafkaTemplate<String, Movie> = KafkaTemplate(producerFactory!!)
-        factory.containerProperties.isMissingTopicsFatal = false
-        factory.setReplyTemplate(kafkaTemplate)
-        return kafkaTemplate
-    }
 }
