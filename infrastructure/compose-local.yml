@@ -70,6 +70,8 @@ services:
     depends_on:
       - kafka
       - cinemaservice_db
+    environment:
+      - POSTGRES_HOST=cinemaservice_db
 
 
   showservice:
