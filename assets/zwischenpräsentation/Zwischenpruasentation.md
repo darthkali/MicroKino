@@ -37,16 +37,26 @@ Service als Modul in den Projekteinstellungen laden:
 
 --
 
+# Kafka
+
+--
+
 Wir haben Kafka exemplarisch zwischen Movie und Show implementiert.
-Der Endpunkt 
+
+![](https://user-images.githubusercontent.com/46423967/208412211-acdd3908-d118-4bff-b7c2-7adeb30803d2.png)
 
 `/show/details/{showId}`
-
-nutzt ein Kafka-Template und den Request-Response-Mechanismus, um asynchron Filmdetails aus dem Movieservice zu erfragen, die anschließend gemeinsam mit den Informationen zur Filmvorstellung zurückgegeben werden.
 
 - [Template](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/messaging/KafkaConfig.kt#L21-L41 "Templates"),
 - [Request-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/ShowServiceController.kt#L46-L60 "Request"),
 - [Response-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/movieservice/src/main/kotlin/de/fherfurt/movieservice/messaging/MovieResult.kt#L10-L22 "Response")
+
+<aside class="notes">    
+- Kafka-Template
+- Request-Response-Mechanismus
+- asynchron Filmdetails aus dem Movieservice
+- anschließend gemeinsam mit den Informationen zur Filmvorstellung zurückgegeben
+</aside>
 
 --
 ## Template
