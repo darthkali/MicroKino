@@ -1,5 +1,6 @@
 ---
 theme: css/cctheme/cctheme.css
+
 ---
 
 # µKino
@@ -156,35 +157,31 @@ class MovieResult {
 # Traefik
 
 --
-
-.. wird über die [docker-compose.yml](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/common_infrastructure.yml#L4-L38) konfiguriert.
-Wir haben für jeden Service einen eigenen Router erstellt.
-Da Traefik direkt an spezifische Container routen kann, kann jeder Service den selben Port nutzen (in unserem Fall in den jeweiligen application.properties konfiguriert, wir nutzen 8090). Weil wir die Ports allerdings nicht exposen - somit keine "ports"-Definition angeben, müssen wir dem jeweiligen Router noch den Port mitteilen.
-Bei Spring muss zusätzlich beachtet werden, dass der jeweilige Webserver standardmäßig auf 'localhost' gebunden wird. Das funktioniert wiederum mit Docker nicht - die Adresse muss (ebenfalls in application.properties) auf 0.0.0.0 geändert werden.
-
+## Traefik
 ```yaml
 # Auszug aus docker-compose.yml
 myservice:
     image: repo/myImage
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.myservice.rule=PathPrefix(`/myservice_prefix`)"   # [1]
-      - "traefik.http.services.myservice.loadbalancer.server.port=8090"         # [3]
+        # 1 Router pro µService
+      - "traefik.http.routers.myservice.rule=PathPrefix(`/myservice_prefix`)"
+        # jeder µService hat gleiche Ports
+      - "traefik.http.services.myservice.loadbalancer.server.port=8090"
 ```
 
 ```properties
 # Auszug Spring Modul application.properties
-server.port=8090        # [2]
-server.address=0.0.0.0  # [4]
+server.port=8090
+server.address=0.0.0.0
 ```
 
 ---
 
-# Build Prozess - Continuous Integration
+# Continuous Integration
 
 --
-
-Jeder Service besitzt eine eigene Dockerfile, in der wir ein Multi-Stage-Docker-Image bauen. Hier wird im ersten Schritt der Service mittels Gradle gebaut und anschließend daraus das Docker Image erzeugt.
+## Dockerfile
 
 ```dockerfile
 # Multi-stage Docker Image Build
@@ -221,16 +218,7 @@ ENTRYPOINT ["java","-jar","/bookingservice-0.0.1-SNAPSHOT.jar"]
 
 ```yml
 name: "movieservice"
-
-on:
-  ...
-
-env:
-  ...
-
-defaults:
-  ...
-
+...
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
@@ -262,16 +250,33 @@ jobs:
 - Schlägt dieser fehl, läuft der Workflow nicht durch und gibt die passende Fehlermeldung aus
 
 </aside>
----
-
-# Local Deployment
 
 --
 
-Hier können wir die gesamte Infrastruktur lokal hochfahren, und müssen nicht jede Änderung der Services hochladen und warten, bis die Packages gebaut werden.
-
+### Produktionsbetrieb
 ```yml
+version: "3.8"
 
+services:
+  gateway:
+    image: "traefik:v2.9"
+    ...
+
+  movieservice:
+    image: ghcr.io/fh-erfurt/microkino:movieservice
+    ...
+    
+  cinemaservice:
+    image: ghcr.io/fh-erfurt/microkino:cinemaservice
+    ...
+ 
+  ...
+```
+
+--
+
+### Testbetrieb
+```yml
 version: "3.8"
 
 services:
@@ -298,65 +303,14 @@ services:
 
 --
 
-Bei uns ist beim Bauen der Anwendung folgender Fehler aufgetreten:
-```shell
-Gradle build daemon disappeared unexpectedly (it may have been killed or may have crashed)
-```
- Das liegt daran, dass der Docker Deamon nicht genügend Arbeitsspeicher zur verfügung hat. Unsere initiale Lösung ist es dem Deamon in den Settings im Docker Desktop mehr Speicher zuzuweisen:
- 
-
-<img width="500" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/208297991-4474935e-23ee-4592-8af4-030b23f7acab.png">
---
-
-## Produktions- und Testbetrieb
-Diese Compose Datei nutzt die Packages, welche automatisiert in den GitHub Action Workflows erzeugt werden. Diese wird dann für den Produktions- und Testbetrieb (Deploymentprozess) genutzt.
-
-
-```yml
-version: "3.8"
-
-services:
-  gateway:
-    image: "traefik:v2.9"
-    ...
-
-  movieservice:
-    image: ghcr.io/fh-erfurt/microkino:movieservice
-    ...
-    
-  cinemaservice:
-    image: ghcr.io/fh-erfurt/microkino:cinemaservice
-    ...
- 
-  ...
-```
-
---
-
-Wenn mehrere Compose-Files im selben Verzeichnis liegen, kann man sie mit dem '-f' Flag spezifizieren:
-```bash
-docker compose -f compose-local.yml up -d --build --force-recreate
-```
->  **Anmerkung**: beim wiederholten Erzeugen von Container Images mit identischen Tags werden die bestehenden Images nicht überschrieben, sondern nur die Tags gelöscht.
->  Alte Images bleiben dann einfach ungenutzt liegen - in unserem Fall sind diese jeweils > 500mb. Mit dem Befehl
->  ```bash
->  docker image prune -f
->  ```
->  können diese entfernt werden.
->  In unserem Projekt übernimmt das die ausführbare Datei [recreate-local.bat](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/recreate-local.bat) bzw. [recreate-local.sh](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/recreate-local.sh).
-
---
-
-### Pull Package von GitHub Registry
-Um das Package welches ihr in eure private GitHub Registry deployed habt zu pullen, müsst ihr euch zunächst Authentifizieren. Das erfolgt über den folgenden Befehl
+### Pull (private) Package von GitHub Registry
 
 ```shell
   docker login ghcr.io
 ```
 
-Hierbei werdet ihr aufgefordert einen **Usernamen** und ein **Passwort** einzugeben. Für das Passwort benötigt ihr einen **Personal Access Token**. Diesen könnt Ihr euch unter eurem Account anlegen.
-
-Danach könnt Ihr das Package pullen:
+- fordert **Usernamen** und **Passwort**
+- Passwort = **Personal Access Token** von GitHub
 
 ```bash
   docker pull ghcr.io/<namespace>/<package-name>
@@ -364,9 +318,28 @@ Danach könnt Ihr das Package pullen:
 
 --
 
-## Recycling
+### Compose File spezifizieren
+```bash
+docker compose -f **compose-local.yml** up -d --build --force-recreate
+```
 
-Beispiel aus [compose-local.yml](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/compose-local.yml)
+```bash
+docker image prune -f		# entfernt alte Images
+```
+
+---
+
+### Recycling
+
+--
+
+## Dateistruktur
+
+![compose-extended](https://github.com/fh-erfurt/MicroKino/blob/main/assets/compose_extended.png?raw=true)
+
+--
+
+## compose-remote.yml
 ```yml
 version: "2.4"
 
@@ -375,16 +348,35 @@ services:
     extends:
       file: common_infrastructure.yml
       service: gateway
-
-  zookeeper:
+      
+  movieservice_db:
     extends:
       file: common_infrastructure.yml
-      service: zookeeper
+      service: db
 
-  kafka:
+
+
+  movieservice:
+    extends:
+      file: microservices.yml
+      service: movieservice
+    image: ghcr.io/fh-erfurt/microkino:movieservice
+    depends_on:
+      - kafka
+      - movieservice_db
+```
+
+--
+
+## compose-local.yml
+```yml
+version: "2.4"
+
+services:
+  gateway:
     extends:
       file: common_infrastructure.yml
-      service: kafka
+      service: gateway
 
   movieservice_db:
     extends:
@@ -406,7 +398,7 @@ services:
 
 --
 
-Und ein Part aus [common_infrastructure.yml](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/common_infrastructure)
+## common_infrastructure.yml
 ```yml
   zookeeper:
     image: wurstmeister/zookeeper
@@ -441,12 +433,15 @@ Und ein Part aus [common_infrastructure.yml](https://github.com/fh-erfurt/MicroK
 --
 
 ## Windows vs. Unix
-Im obenstehenden Beispiel taucht die Umgebungsvariable **${PATH_PREFIX}** auf. Dateipfadangaben für Docker Volumes erfordern unter Windows zu Beginn einen zusätzlichen Slash **/**,
-der über die Datei */infrastructure/.env* definiert wird. Standardmäßig heißt die Datei [.env.removeThisExtensionOnWindows](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/.env.removeThisExtensionOnWindows) - bei Bedarf löscht man einfach die Endung. Andernfalls ersetzt Compose die unbekannte Variable durch einen leeren String und macht sie somit wie gewünscht unwirksam.
+
+Dateipfadangaben für Docker Volumes erfordern unter Windows zu Beginn einen zusätzlichen Slash **/**
+
+Wir lösen dies mit einer .env Datei und einer Umgebungsvariable **${PATH_PREFIX}** 
+
 
 ---
 
-### Kubernetes
+### Kubernetes - /CD
 Damit gehts weiter:
 
 <img width="300" src="https://user-images.githubusercontent.com/46423967/208298160-868304d4-7e04-4db6-bb72-6e5cf2901bec.png">
