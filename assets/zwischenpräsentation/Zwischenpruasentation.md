@@ -37,13 +37,9 @@ Service als Modul in den Projekteinstellungen laden:
 
 --
 
-# Kafka
-
---
-
 Wir haben Kafka exemplarisch zwischen Movie und Show implementiert.
 
-![](https://user-images.githubusercontent.com/46423967/208412211-acdd3908-d118-4bff-b7c2-7adeb30803d2.png)
+<img width="300" src="https://user-images.githubusercontent.com/46423967/208412211-acdd3908-d118-4bff-b7c2-7adeb30803d2.png">
 
 `/show/details/{showId}`
 
@@ -185,6 +181,7 @@ myservice:
 server.port=8090
 server.address=0.0.0.0
 ```
+
 
 ---
 
@@ -339,7 +336,7 @@ docker image prune -f		# entfernt alte Images
 
 ---
 
-### Recycling
+# Recycling
 
 --
 
