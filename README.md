@@ -7,9 +7,12 @@
 
 Mobile Computing 2 Projekt WiSe2022 von Danny Steinbrecher und Christian Harders
 
+<img width="20" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/208724713-9011a44f-4bff-4bda-8f3c-996b71f84e08.png"> <a href="https://github.com/fh-erfurt/MicroKino-Kubernetes-config" target="_blank">Kubernetes Confiig für MicroKino</a>
+
 ## Projekt Struktur
 ### Architektur
-![image](https://user-images.githubusercontent.com/46423967/205976256-8cf2b721-6b22-4d1a-8734-2d0e780b96ac.png)
+![g
+age](https://user-images.githubusercontent.com/46423967/205976256-8cf2b721-6b22-4d1a-8734-2d0e780b96ac.png)
 
 
 
