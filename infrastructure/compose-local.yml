@@ -58,6 +58,8 @@ services:
     depends_on:
       - kafka
       - movieservice_db
+    environment:
+      - POSTGRES_HOST=movieservice_db
 
   cinemaservice:
     extends:
@@ -85,6 +87,8 @@ services:
     depends_on:
       - kafka
       - showservice_db
+    environment:
+      - POSTGRES_HOST=showservice_db
 
   bookingservice:
     extends:
@@ -97,3 +101,5 @@ services:
     depends_on:
       - kafka
       - bookingservice_db
+    environment:
+      - POSTGRES_HOST=bookingservice_db
