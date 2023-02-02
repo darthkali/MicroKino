@@ -1,11 +1,11 @@
 # µKino
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/bookingservice.yml?branch=main&label=Booking&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/cinemaservice.yml?branch=main&label=Cinema&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/movieservice.yml?branch=main&label=Movie&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/showservice.yml?branch=main&label=Show&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/bookingservice.yml?branch=main&label=Booking&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/cinemaservice.yml?branch=main&label=Cinema&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/movieservice.yml?branch=main&label=Movie&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/showservice.yml?branch=main&label=Show&style=for-the-badge)
 
-<img width="20" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/208724713-9011a44f-4bff-4bda-8f3c-996b71f84e08.png"> <a href="https://github.com/fh-erfurt/MicroKino-Kubernetes-config" target="_blank">Kubernetes Config für MicroKino</a>
+<img width="20" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/208724713-9011a44f-4bff-4bda-8f3c-996b71f84e08.png"> <a href="https://github.com/darthkali/MicroKino-Kubernetes-config" target="_blank">Kubernetes Config für MicroKino</a>
 
 ## Projekt Struktur
 
@@ -34,9 +34,9 @@ Wir haben Kafka exemplarisch zwischen Movie und Show implementiert.
 Der Endpunkt **/show/details/{showId}** nutzt Kafka-Templates und den Request-Response-Mechanismus, um asynchron
 Filmdetails aus dem Movieservice zu erfragen, die anschließend gemeinsam mit den Informationen zur Filmvorstellung
 zurückgegeben werden.
-[Templates](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/messaging/KafkaConfig.kt#L21-L41 "Templates"),
-[Request-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/ShowServiceController.kt#L46-L60 "Request"),
-[Response-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/movieservice/src/main/kotlin/de/fherfurt/movieservice/messaging/MovieResult.kt#L10-L22 "Response")
+[Templates](https://github.com/darthkali/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/messaging/KafkaConfig.kt#L21-L41 "Templates"),
+[Request-Implementierung](https://github.com/darthkali/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/ShowServiceController.kt#L46-L60 "Request"),
+[Response-Implementierung](https://github.com/darthkali/MicroKino/blob/main/movieservice/src/main/kotlin/de/fherfurt/movieservice/messaging/MovieResult.kt#L10-L22 "Response")
 
 ### Template
 
@@ -127,7 +127,7 @@ Besser wäre, aus '/show/{showId}' einfach '/show/id/{showId}' zu machen, um die
 ## Traefik
 
 .. wird über
-die [docker-compose.yml](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/common_infrastructure.yml#L4-L38)
+die [docker-compose.yml](https://github.com/darthkali/MicroKino/blob/main/infrastructure/common_infrastructure.yml#L4-L38)
 konfiguriert.
 Wir haben für jeden Service einen eigenen Router erstellt<sup>[1]</sup>.
 Da Traefik direkt an spezifische Container routen kann, kann jeder Service den selben Port nutzen<sup>[2]</sup> (in
@@ -250,11 +250,11 @@ services:
     ...
 
   movieservice:
-    image: ghcr.io/fh-erfurt/microkino:movieservice
+    image: ghcr.io/darthkali/microkino:movieservice
     ...
 
   cinemaservice:
-    image: ghcr.io/fh-erfurt/microkino:cinemaservice
+    image: ghcr.io/darthkali/microkino:cinemaservice
     ...
 
   ...
@@ -278,14 +278,14 @@ services:
     build:
       context: ../movieservice
       dockerfile: ../movieservice/Dockerfile
-    image: "fh-erfurt/microkino:movieservice"
+    image: "darthkali/microkino:movieservice"
     ...
 
   cinemaservice:
     build:
       context: ../cinemaservice
       dockerfile: ../cinemaservice/Dockerfile
-    image: "fh-erfurt/microkino:cinemaservice"
+    image: "darthkali/microkino:cinemaservice"
     ...
 
   ...
@@ -337,14 +337,14 @@ docker compose -f compose-local.yml up -d --build --force-recreate
 >  ```
 >  können diese entfernt werden.
 > In unserem Projekt übernimmt das die ausführbare
-> Datei [recreate-local.bat](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/recreate-local.bat)
-> bzw. [recreate-local.sh](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/recreate-local.sh).
+> Datei [recreate-local.bat](https://github.com/darthkali/MicroKino/blob/main/infrastructure/recreate-local.bat)
+> bzw. [recreate-local.sh](https://github.com/darthkali/MicroKino/blob/main/infrastructure/recreate-local.sh).
 
 ## Recycling
 
 ### Dateistruktur
 
-![compose-extended](https://github.com/fh-erfurt/MicroKino/blob/main/assets/compose_extended.png?raw=true)
+![compose-extended](https://github.com/darthkali/MicroKino/blob/main/assets/compose_extended.png?raw=true)
 
 Die Compose-Files für das Hochfahren in Produktivumgebung bzw. Bauen und Starten zu lokalen Testzwecken unterscheiden
 sich eigentlich nur in der Quelle der Images und ggf. einigen freigegebenen Ports. Um nicht alles doppelt schreiben oder
@@ -355,7 +355,7 @@ nicht mitvererbt wird.
 
 ### compose-remote.yml
 
-Beispiel aus [compose-local.yml](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/compose-local.yml)
+Beispiel aus [compose-local.yml](https://github.com/darthkali/MicroKino/blob/main/infrastructure/compose-local.yml)
 
 ```yml
 version: "2.4"
@@ -375,7 +375,7 @@ services:
     extends:
       file: microservices.yml
       service: movieservice
-    image: ghcr.io/fh-erfurt/microkino:movieservice
+    image: ghcr.io/darthkali/microkino:movieservice
     depends_on:
       - kafka
       - movieservice_db
@@ -401,7 +401,7 @@ services:
     extends:
       file: microservices.yml
       service: movieservice
-    image: ghcr.io/fh-erfurt/microkino:movieservice
+    image: ghcr.io/darthkali/microkino:movieservice
     depends_on:
       - kafka
       - movieservice_db
@@ -410,7 +410,7 @@ services:
 ### common_infrastructure.yml
 
 Und ein Part
-aus [common_infrastructure.yml](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/common_infrastructure)
+aus [common_infrastructure.yml](https://github.com/darthkali/MicroKino/blob/main/infrastructure/common_infrastructure)
 
 ```yml
   zookeeper:
@@ -448,7 +448,7 @@ aus [common_infrastructure.yml](https://github.com/fh-erfurt/MicroKino/blob/main
 Im obenstehenden Beispiel taucht die Umgebungsvariable **${PATH_PREFIX}** auf. Dateipfadangaben für Docker Volumes
 erfordern unter Windows zu Beginn einen zusätzlichen Slash **/**,
 der über die Datei */infrastructure/.env* definiert wird. Standardmäßig heißt die
-Datei [.env.removeThisExtensionOnWindows](https://github.com/fh-erfurt/MicroKino/blob/main/infrastructure/.env.removeThisExtensionOnWindows) -
+Datei [.env.removeThisExtensionOnWindows](https://github.com/darthkali/MicroKino/blob/main/infrastructure/.env.removeThisExtensionOnWindows) -
 bei Bedarf löscht man einfach die Endung. Andernfalls ersetzt Compose die unbekannte Variable durch einen leeren String
 und macht sie somit wie gewünscht unwirksam.
 
@@ -460,7 +460,7 @@ Damit gehts weiter:
     <img width="150" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/208724713-9011a44f-4bff-4bda-8f3c-996b71f84e08.png">
 </p>
 <p align="center">
-    <a href="https://github.com/fh-erfurt/MicroKino-Kubernetes-config" target="_blank">Kubernetes Config für MicroKino</a>   
+    <a href="https://github.com/darthkali/MicroKino-Kubernetes-config" target="_blank">Kubernetes Config für MicroKino</a>   
 </p>
 
 ---

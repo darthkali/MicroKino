@@ -53,7 +53,7 @@ services:
     extends:
       file: microservices.yml
       service: movieservice
-    image: ghcr.io/fh-erfurt/microkino:movieservice
+    image: ghcr.io/darthkali/microkino:movieservice
     depends_on:
       - kafka
       - movieservice_db
@@ -62,7 +62,7 @@ services:
     extends:
       file: microservices.yml
       service: cinemaservice
-    image: ghcr.io/fh-erfurt/microkino:cinemaservice
+    image: ghcr.io/darthkali/microkino:cinemaservice
     depends_on:
       - kafka
       - cinemaservice_db
@@ -72,7 +72,7 @@ services:
     extends:
       file: microservices.yml
       service: showservice
-    image: ghcr.io/fh-erfurt/microkino:showservice
+    image: ghcr.io/darthkali/microkino:showservice
     depends_on:
       - kafka
       - showservice_db
@@ -81,7 +81,7 @@ services:
     extends:
       file: microservices.yml
       service: bookingservice
-    image: ghcr.io/fh-erfurt/microkino:bookingservice
+    image: ghcr.io/darthkali/microkino:bookingservice
     depends_on:
       - kafka
       - bookingservice_db

@@ -53,7 +53,7 @@ services:
     build:
       context: ../movieservice
       dockerfile: ../movieservice/Dockerfile
-    image: "fh-erfurt/microkino:movieservice"
+    image: "darthkali/microkino:movieservice"
     # Services will not share depends_on when using 'extends'
     depends_on:
       - kafka
@@ -68,7 +68,7 @@ services:
     build:
       context: ../cinemaservice
       dockerfile: ../cinemaservice/Dockerfile
-    image: "fh-erfurt/microkino:cinemaservice"
+    image: "darthkali/microkino:cinemaservice"
     depends_on:
       - kafka
       - cinemaservice_db
@@ -83,7 +83,7 @@ services:
     build:
       context: ../showservice
       dockerfile: ../showservice/Dockerfile
-    image: "fh-erfurt/microkino:showservice"
+    image: "darthkali/microkino:showservice"
     depends_on:
       - kafka
       - showservice_db
@@ -97,7 +97,7 @@ services:
     build:
       context: ../bookingservice
       dockerfile: ../bookingservice/Dockerfile
-    image: "fh-erfurt/microkino:bookingservice"
+    image: "darthkali/microkino:bookingservice"
     depends_on:
       - kafka
       - bookingservice_db

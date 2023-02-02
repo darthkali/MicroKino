@@ -4,10 +4,10 @@ theme: css/cctheme/cctheme.css
 ---
 
 # µKino
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/bookingservice.yml?branch=main&label=Booking&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/cinemaservice.yml?branch=main&label=Cinema&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/movieservice.yml?branch=main&label=Movie&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/fh-erfurt/MicroKino/showservice.yml?branch=main&label=Show&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/bookingservice.yml?branch=main&label=Booking&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/cinemaservice.yml?branch=main&label=Cinema&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/movieservice.yml?branch=main&label=Movie&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/showservice.yml?branch=main&label=Show&style=for-the-badge)
 
 **Mobile Computing 2 - WiSe 2022**
 
@@ -43,9 +43,9 @@ Wir haben Kafka exemplarisch zwischen Movie und Show implementiert.
 
 `/show/details/{showId}`
 
-- [Template](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/messaging/KafkaConfig.kt#L21-L41 "Templates"),
-- [Request-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/ShowServiceController.kt#L46-L60 "Request"),
-- [Response-Implementierung](https://github.com/fh-erfurt/MicroKino/blob/main/movieservice/src/main/kotlin/de/fherfurt/movieservice/messaging/MovieResult.kt#L10-L22 "Response")
+- [Template](https://github.com/darthkali/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/messaging/KafkaConfig.kt#L21-L41 "Templates"),
+- [Request-Implementierung](https://github.com/darthkali/MicroKino/blob/main/showservice/src/main/kotlin/de/fherfurt/showservice/ShowServiceController.kt#L46-L60 "Request"),
+- [Response-Implementierung](https://github.com/darthkali/MicroKino/blob/main/movieservice/src/main/kotlin/de/fherfurt/movieservice/messaging/MovieResult.kt#L10-L22 "Response")
 
 <aside class="notes">    
 - Kafka-Template
@@ -270,11 +270,11 @@ services:
     ...
 
   movieservice:
-    image: ghcr.io/fh-erfurt/microkino:movieservice
+    image: ghcr.io/darthkali/microkino:movieservice
     ...
     
   cinemaservice:
-    image: ghcr.io/fh-erfurt/microkino:cinemaservice
+    image: ghcr.io/darthkali/microkino:cinemaservice
     ...
  
   ...
@@ -295,14 +295,14 @@ services:
     build:
       context: ../movieservice
       dockerfile: ../movieservice/Dockerfile
-    image: "fh-erfurt/microkino:movieservice"
+    image: "darthkali/microkino:movieservice"
     ...
     
   cinemaservice:
     build:
       context: ../cinemaservice
       dockerfile: ../cinemaservice/Dockerfile
-    image: "fh-erfurt/microkino:cinemaservice"
+    image: "darthkali/microkino:cinemaservice"
     ...
     
   ...
@@ -342,7 +342,7 @@ docker image prune -f		# entfernt alte Images
 
 ## Dateistruktur
 
-![compose-extended](https://github.com/fh-erfurt/MicroKino/blob/main/assets/compose_extended.png?raw=true)
+![compose-extended](https://github.com/darthkali/MicroKino/blob/main/assets/compose_extended.png?raw=true)
 
 --
 
@@ -367,7 +367,7 @@ services:
     extends:
       file: microservices.yml
       service: movieservice
-    image: ghcr.io/fh-erfurt/microkino:movieservice
+    image: ghcr.io/darthkali/microkino:movieservice
     depends_on:
       - kafka
       - movieservice_db
@@ -397,7 +397,7 @@ services:
     build:
       context: ../movieservice
       dockerfile: ../movieservice/Dockerfile
-    image: "fh-erfurt/microkino:movieservice"
+    image: "darthkali/microkino:movieservice"
     depends_on:
       - kafka
       - movieservice_db

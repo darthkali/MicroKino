@@ -51,6 +51,6 @@ jobs:
           file: ./showservice/Dockerfile
           push: true
           #tags: ${{ steps.meta.outputs.tags }}
-          tags: ghcr.io/fh-erfurt/microkino:showservice
+          tags: ghcr.io/darthkali/microkino:showservice
           labels: ${{ steps.meta.outputs.labels }}
         

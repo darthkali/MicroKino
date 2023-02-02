@@ -78,7 +78,7 @@ services:
      - /var/run/docker.sock:/var/run/docker.sock
 
   movieservice:
-    image: ghcr.io/fh-erfurt/microkino:movieservice
+    image: ghcr.io/darthkali/microkino:movieservice
     deploy:
       restart_policy:
         condition: on-failure
@@ -100,7 +100,7 @@ services:
       - db
 
   cinemaservice:
-    image: ghcr.io/fh-erfurt/microkino:cinemaservice
+    image: ghcr.io/darthkali/microkino:cinemaservice
     deploy:
       restart_policy:
         condition: on-failure
@@ -119,7 +119,7 @@ services:
       - db
 
   showservice:
-    image: ghcr.io/fh-erfurt/microkino:showservice
+    image: ghcr.io/darthkali/microkino:showservice
     deploy:
       restart_policy:
         condition: on-failure
@@ -138,7 +138,7 @@ services:
       - db
 
   bookingservice:
-    image: ghcr.io/fh-erfurt/microkino:bookingservice
+    image: ghcr.io/darthkali/microkino:bookingservice
     deploy:
       restart_policy:
         condition: on-failure

@@ -88,7 +88,7 @@ services:
     build:
       context: ../../movieservice
       dockerfile: ../../movieservice/Dockerfile
-    image: "fh-erfurt/microkino:movieservice"
+    image: "darthkali/microkino:movieservice"
     deploy:
       restart_policy:
         condition: on-failure
@@ -115,7 +115,7 @@ services:
     build:
       context: ../../cinemaservice
       dockerfile: ../../cinemaservice/Dockerfile
-    image: "fh-erfurt/microkino:cinemaservice"
+    image: "darthkali/microkino:cinemaservice"
     deploy:
       restart_policy:
         condition: on-failure
@@ -140,7 +140,7 @@ services:
     build:
       context: ../../showservice
       dockerfile: ../../showservice/Dockerfile
-    image: "fh-erfurt/microkino:showservice"
+    image: "darthkali/microkino:showservice"
     deploy:
       restart_policy:
         condition: on-failure
@@ -164,7 +164,7 @@ services:
     build:
       context: ../../bookingservice
       dockerfile: ../../bookingservice/Dockerfile
-    image: "fh-erfurt/microkino:bookingservice"
+    image: "darthkali/microkino:bookingservice"
     deploy:
       restart_policy:
         condition: on-failure
