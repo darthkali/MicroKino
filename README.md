@@ -1,6 +1,6 @@
 # µKino
 
-<img align="left" width="150"  src="https://user-images.githubusercontent.com/46423967/218316584-9afaf3cd-44a2-47ce-ad80-6b014a1ece67.png">
+<img align="left" width="140"  src="https://user-images.githubusercontent.com/46423967/218316584-9afaf3cd-44a2-47ce-ad80-6b014a1ece67.png">
 
 
 - ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/bookingservice.yml?branch=main&label=Booking)
