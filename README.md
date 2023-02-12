@@ -1,18 +1,20 @@
 # µKino
 
-<img align="left" width="140"  src="https://user-images.githubusercontent.com/46423967/218316584-9afaf3cd-44a2-47ce-ad80-6b014a1ece67.png">
 
 
-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/bookingservice.yml?branch=main&label=Booking)
-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/cinemaservice.yml?branch=main&label=Cinema)
-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/movieservice.yml?branch=main&label=Movie)
-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/showservice.yml?branch=main&label=Show)
-- [![renovateenabled](https://img.shields.io/badge/renovate-enabled-yellow)](https://app.renovatebot.com/dashboard)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/bookingservice.yml?branch=main&label=Booking)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/cinemaservice.yml?branch=main&label=Cinema)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/movieservice.yml?branch=main&label=Movie)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/darthkali/MicroKino/showservice.yml?branch=main&label=Show)
+[![renovateenabled](https://img.shields.io/badge/renovate-enabled-yellow)](https://app.renovatebot.com/dashboard)
 
+<p align="center">
+  <img width="200"  src="https://user-images.githubusercontent.com/46423967/218316584-9afaf3cd-44a2-47ce-ad80-6b014a1ece67.png">
+</p>
 
 <img width="20" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/208724713-9011a44f-4bff-4bda-8f3c-996b71f84e08.png"> <a href="https://github.com/darthkali/MicroKino-Kubernetes-config" target="_blank">Kubernetes Config für MicroKino</a>
 
-<br>
+
 
 ## Projekt Struktur
 
