@@ -7,7 +7,7 @@
   ],
   "timezone": "Europe/Berlin",
   "schedule": [
-    "after 5am every weekday",
-    "before 1pm every weekday"
+    "after 9pm every weekend",
+    "before 10pm every weekend"
   ]
 }
