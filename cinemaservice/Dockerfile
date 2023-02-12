@@ -15,7 +15,7 @@ COPY src src
 RUN gradle build
 
 # Final Image that will contain the application created by above build image
-FROM openjdk:17
+FROM openjdk:17.0.2
 
 ENV LANGUAGE='en_US:en'
 
