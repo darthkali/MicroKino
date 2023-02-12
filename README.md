@@ -13,7 +13,7 @@
 <img width="20" alt="Bildschirmfoto 2022-10-11 um 14 11 22" src="https://user-images.githubusercontent.com/46423967/208724713-9011a44f-4bff-4bda-8f3c-996b71f84e08.png"> <a href="https://github.com/darthkali/MicroKino-Kubernetes-config" target="_blank">Kubernetes Config für MicroKino</a>
 
 
----
+
 ## Projekt Struktur
 
 ### Architektur
