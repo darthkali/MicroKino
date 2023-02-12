@@ -3,5 +3,6 @@
   "baseBranches": ["dev"],
   "extends": [
     "config:base"
+    ":prHourlyLimitNone"
   ]
 }
