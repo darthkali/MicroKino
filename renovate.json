@@ -3,10 +3,11 @@
   "baseBranches": ["dev"],
   "extends": [
     "config:base",
-    ":prHourlyLimitNone",
-    "schedule": [
-	    "after 5am every weekday",
-	    "before 1pm every weekday",
-	  ]
+    ":prHourlyLimitNone"
+  ],
+  "schedule": [
+    "after 10pm every weekday",
+    "before 5am every weekday",
+    "every weekend"
   ]
 }
