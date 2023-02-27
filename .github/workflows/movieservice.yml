@@ -44,7 +44,7 @@ jobs:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
     - name: Build and push Docker image
-      uses: docker/build-push-action@b651cf69a6590d1ad24c71a10b292b7130202c9b
+      uses: docker/build-push-action@35434f557ad77672899d67f7992fb5560bda1071
       with:
         context: ./movieservice/
         file: ./movieservice/Dockerfile
