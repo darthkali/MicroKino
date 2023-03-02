@@ -3,7 +3,7 @@
   "extends": [
     "config:base"
   ],
-  "prHourlyLimit": 8,
+  "prHourlyLimit": 2,
   "timezone": "Europe/Berlin",
   "schedule": [
     "after 5am every weekday",
