@@ -32,7 +32,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Log in to the Container registry
-        uses: docker/login-action@ec9cdf07d570632daeb912f5b2099cb9ec1d01e6
+        uses: docker/login-action@3d58c274f17dffee475a5520cbe67f0a882c4dbb
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
